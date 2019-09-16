@@ -1,0 +1,17 @@
+@import 'lib';
+
+.Modal {
+  .center-flex();
+  background: @color-night-bg;
+  box-shadow: 0 0 5rem -2rem rgba(white, 0.1);
+  min-height: 10rem;
+  min-width: 20rem;
+
+  &-Background {
+    .full-box();
+    .center-flex();
+    background: rgba(white, 0.1);
+    position: fixed;
+    z-index: @z-index[modal];
+  }
+}
