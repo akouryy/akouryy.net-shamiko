@@ -1,4 +1,5 @@
 import React from 'react';
+import { ScrollContext } from '../contexts/ScrollContext';
 import '../styles/BigHeader.less';
 
 interface P {
@@ -6,6 +7,23 @@ interface P {
 }
 
 export const BigHeader: React.FC<P> = () => {
+  const { winHeight, scrollTop } = React.useContext(ScrollContext);
+  const isNightDominant = scrollTop < winHeight / 2;
+
+  React.useEffect(() => {
+    const rootDayClass = 'Root-_Day';
+    const rootNightClass = 'Root-_Night';
+
+    const cl = document.documentElement.classList;
+    if(isNightDominant) {
+      cl.add(rootNightClass);
+      cl.remove(rootDayClass);
+    } else {
+      cl.add(rootDayClass);
+      cl.remove(rootNightClass);
+    }
+  }, [isNightDominant]);
+
   return (
     <header className="BigHeader">
       <h1 className='BigHeader-Title'>akouryy.net</h1>
@@ -21,7 +39,7 @@ export const BigHeader: React.FC<P> = () => {
         </li>
         <li className='BigHeader-MenuItem'>
           <a href='#other'>
-            other
+            programming
           </a>
         </li>
       </ul>
