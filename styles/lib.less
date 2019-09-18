@@ -20,6 +20,21 @@
   modal: 10009;
 }
 
+@color-day-bg: #edeaf2;
+@color-day-bg-pale: darken(@color-day-bg, 10%);
+
+@color-day-fg: #08040c;
+@color-day-fg-link: @color-night-fg * 0.8 + #0000ff * 0.2;
+
+.day() {
+  background: @color-day-bg;
+  color: @color-day-fg;
+
+  a {
+    color: @color-day-fg-link;
+  }
+}
+
 @color-night-bg: #040206;
 @color-night-bg-pale: lighten(@color-night-bg, 10%);
 
