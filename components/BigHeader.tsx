@@ -4,11 +4,11 @@ import { ScrollContext } from '../contexts/ScrollContext';
 import '../styles/BigHeader.less';
 
 interface P {
-  menu: Array<[string, string]>;
+  menu: ReadonlyArray<[string, string]>;
   children?: never;
 }
 
-export const BigHeader: React.FC<P> = ({ menu }) => {
+export const BigHeader: React.FC<P> = (props) => {
   const { winHeight, scrollTop } = React.useContext(ScrollContext);
   const isNightDominant = scrollTop < winHeight / 2;
 
@@ -26,6 +26,10 @@ export const BigHeader: React.FC<P> = ({ menu }) => {
     }
   }, [isNightDominant]);
 
+  return (<BigHeaderPure {...props} />);
+};
+
+const BigHeaderPure: React.FC<P> = React.memo(({ menu }) => {
   return (
     <header className='BigHeader'>
       <h1 className='BigHeader-Title'>akouryy.net</h1>
@@ -41,4 +45,4 @@ export const BigHeader: React.FC<P> = ({ menu }) => {
       </ul>
     </header>
   );
-};
+});
