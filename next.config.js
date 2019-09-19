@@ -5,4 +5,8 @@ module.exports = withCSS(withLess({
   exportPathMap: () => ({
     '/': { page: '/' },
   }),
+  lessLoaderOptions: {
+    math: 'strict',
+    strictUnits: true,
+  },
 }));

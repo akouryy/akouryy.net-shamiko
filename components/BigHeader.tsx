@@ -26,12 +26,12 @@ export const BigHeader: React.FC<P> = ({ menu }) => {
   }, [isNightDominant]);
 
   return (
-    <header className="BigHeader">
+    <header className='BigHeader'>
       <h1 className='BigHeader-Title'>akouryy.net</h1>
 
       <ul className='BigHeader-Menu'>
         {menu.map(([to, title]) => (
-          <li className='BigHeader-MenuItem'>
+          <li className='BigHeader-MenuItem' key={to}>
             <a href={to}>
               {title}
             </a>

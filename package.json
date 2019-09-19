@@ -6,6 +6,8 @@
   "author": "akouryy <akouryy7@gmail.com>",
   "license": "Apache-2.0",
   "scripts": {
+    "l": "yarn run lint",
+    "lint": "eslint . --ext .ts,.tsx",
     "dev": "next",
     "d": "next",
     "build": "next build",
@@ -21,12 +23,23 @@
     "@types/react-dom": "^16.9.0",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-less": "^1.0.1",
-    "less": "^3.10.3",
+    "less": "^2.7.3",
     "lodash": "^4.17.15",
     "next": "^9.0.5",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "typescript": "~3.6.3"
+    "typescript": "~3.6.3",
+    "webpack": "^4.39.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/parser": "^2.3.0",
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0"
   }
 }

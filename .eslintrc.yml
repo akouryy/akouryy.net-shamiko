@@ -1,0 +1,55 @@
+env:
+  browser: true
+
+extends:
+  # - eslint:recommended
+  - plugin:@typescript-eslint/eslint-recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:@typescript-eslint/recommended-requiring-type-checking
+  - airbnb
+
+overrides:
+  - files: [pages/*.tsx]
+    rules:
+      import/no-default-export: off
+
+parser: '@typescript-eslint/parser'
+
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 6
+  project: ./tsconfig.json
+  sourceType: module
+
+plugins: ['@typescript-eslint']
+
+rules:
+  arrow-body-style: off
+  keyword-spacing:
+    - error
+    - overrides:
+        for: { after: false }
+        if: { after: false }
+        switch: { after: false }
+        while: { after: false }
+
+  '@typescript-eslint/indent': [error, 2]
+  import/no-default-export: error
+  import/prefer-default-export: off
+  jsx-quotes: [error, prefer-single]
+  react/jsx-filename-extension:
+    - error
+    - extensions: [.jsx, .tsx]
+  react/prop-types: off
+  spaced-comment:
+    - error
+    - always
+    - markers: [/ <reference]
+
+settings:
+  import/resolver:
+    node:
+      extensions: [.js, .jsx, .ts, .tsx]
+  react:
+    version: detect

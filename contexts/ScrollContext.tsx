@@ -39,7 +39,7 @@ export const useScrollProps = (): ScrollProps => {
     const handler = throttle(() => update(calcScrollProps()), 50);
     document.addEventListener('scroll', handler);
     window.addEventListener('resize', handler);
-    return () => {
+    return (): void => {
       document.removeEventListener('scroll', handler);
       window.removeEventListener('resize', handler);
     };
@@ -47,4 +47,3 @@ export const useScrollProps = (): ScrollProps => {
 
   return props;
 };
-

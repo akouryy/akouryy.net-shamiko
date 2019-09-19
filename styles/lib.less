@@ -24,7 +24,7 @@
 @color-day-bg-pale: darken(@color-day-bg, 10%);
 
 @color-day-fg: #08040c;
-@color-day-fg-link: @color-day-fg * 0.2 + #0000ff * 0.8;
+@color-day-fg-link: (@color-day-fg * 0.2 + #0000ff * 0.8);
 
 .day() {
   background: @color-day-bg;
@@ -39,7 +39,7 @@
 @color-night-bg-pale: lighten(@color-night-bg, 10%);
 
 @color-night-fg: #cdcae2;
-@color-night-fg-link: @color-night-fg * 0.8 + #0000ff * 0.2;
+@color-night-fg-link: (@color-night-fg * 0.8 + #0000ff * 0.2);
 
 .night() {
   background: @color-night-bg;

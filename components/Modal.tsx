@@ -6,9 +6,21 @@ interface P {
 }
 
 export const Modal: React.FC<P> = ({ children, hider }) => {
+  const onKeyPress = (ev: React.KeyboardEvent<HTMLDivElement>): void => {
+    if(ev.key === 'Escape') {
+      hider(false);
+    }
+  };
+
   return (
-    <div className="Modal-Background" onClick={() => hider(false)}>
-      <div className="Modal">
+    <div
+      className='Modal-Background'
+      onClick={(): void => hider(false)}
+      onKeyPress={onKeyPress}
+      role='button'
+      tabIndex={0}
+    >
+      <div className='Modal'>
         {children}
       </div>
     </div>

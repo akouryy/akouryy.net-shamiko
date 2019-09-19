@@ -8,12 +8,14 @@ const Home: React.FC = () => {
   return (
     <BasePage canonical='/'>
       <div className='PageIndex'>
-        <BigHeader menu={[
-          ['#PageIndex-Profile', 'profile'],
-          ['#PageIndex-Contact', 'contact'],
-          ['#PageIndex-Programming', 'programming'],
-        ]} />
-        <main className="PageIndex-Main">
+        <BigHeader
+          menu={[
+            ['#PageIndex-Profile', 'profile'],
+            ['#PageIndex-Contact', 'contact'],
+            ['#PageIndex-Programming', 'programming'],
+          ]}
+        />
+        <main className='PageIndex-Main'>
           <Section id='PageIndex-Profile' title='自己紹介'>
             Comming sooner or later
           </Section>
