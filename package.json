@@ -21,6 +21,7 @@
     "@types/node": "^12.7.5",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
+    "@types/react-scroll": "^1.5.4",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-less": "^1.0.1",
     "less": "^2.7.3",
@@ -29,6 +30,7 @@
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-scroll": "^1.7.14",
     "typescript": "~3.6.3",
     "webpack": "^4.39.0"
   },

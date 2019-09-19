@@ -10,9 +10,9 @@ const Home: React.FC = () => {
       <div className='PageIndex'>
         <BigHeader
           menu={[
-            ['#PageIndex-Profile', 'profile'],
-            ['#PageIndex-Contact', 'contact'],
-            ['#PageIndex-Programming', 'programming'],
+            ['PageIndex-Profile', 'profile'],
+            ['PageIndex-Contact', 'contact'],
+            ['PageIndex-Programming', 'programming'],
           ]}
         />
         <main className='PageIndex-Main'>

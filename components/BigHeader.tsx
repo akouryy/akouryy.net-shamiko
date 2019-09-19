@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-scroll';
 import { ScrollContext } from '../contexts/ScrollContext';
 import '../styles/BigHeader.less';
 
@@ -32,9 +33,9 @@ export const BigHeader: React.FC<P> = ({ menu }) => {
       <ul className='BigHeader-Menu'>
         {menu.map(([to, title]) => (
           <li className='BigHeader-MenuItem' key={to}>
-            <a href={to}>
+            <Link duration={500} smooth to={to}>
               {title}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
