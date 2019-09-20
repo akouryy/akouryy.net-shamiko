@@ -42,7 +42,7 @@ const BigHeaderHero: React.FC<P> = React.memo(({ menu }) => {
       <ul className='BigHeaderHero-Menu'>
         {menu.map(([to, title]) => (
           <li className='BigHeaderHero-MenuItem' key={to}>
-            <Link duration={500} offset={-48} smooth to={to}>
+            <Link duration={1000} offset={-48} smooth to={to}>
               {title}
             </Link>
           </li>
@@ -54,7 +54,7 @@ const BigHeaderHero: React.FC<P> = React.memo(({ menu }) => {
 
 const BigHeaderFixed: React.FC<P> = React.memo(() => {
   const onClick = React.useCallback(
-    (): void => animateScroll.scrollToTop({ duration: 500 }),
+    (): void => animateScroll.scrollToTop({ duration: 1000 }),
     [],
   );
 

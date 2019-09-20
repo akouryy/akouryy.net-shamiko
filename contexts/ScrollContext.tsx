@@ -36,12 +36,13 @@ export const useScrollProps = (): ScrollProps => {
   const [props, update] = React.useState(calcScrollProps());
 
   React.useEffect(() => {
-    const handler = throttle(() => update(calcScrollProps()), 30);
-    document.addEventListener('scroll', handler);
-    window.addEventListener('resize', handler);
+    const handler = throttle(() => update(calcScrollProps()), 16);
+    const options = { capture: false, passive: true };
+    document.addEventListener('scroll', handler, options);
+    window.addEventListener('resize', handler, options);
     return (): void => {
-      document.removeEventListener('scroll', handler);
-      window.removeEventListener('resize', handler);
+      document.removeEventListener('scroll', handler, options);
+      window.removeEventListener('resize', handler, options);
     };
   }, []);
 

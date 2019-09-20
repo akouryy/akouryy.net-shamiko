@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import '../styles/PageIndex.less';
 import { BasePage } from '../components/BasePage';
 import { BigHeader } from '../components/BigHeader';
@@ -8,6 +9,7 @@ const headerMenu: ReadonlyArray<[string, string]> = Object.freeze([
   ['PageIndex-Profile', 'profile'],
   ['PageIndex-Contact', 'contact'],
   ['PageIndex-Programming', 'programming'],
+  ['PageIndex-Links', 'links'],
 ]);
 
 const Home: React.FC = () => {
@@ -32,13 +34,38 @@ const Home: React.FC = () => {
             <Section id='PageIndex-Programming' title='プログラミング'>
               <p>プログラミングが好きです</p>
               <p>
-                進捗:
-                {' '}
-                <a href='http://isucon.net/archives/53570241.html'>ISUCON9</a>
-                {' '}
-                本選出場
+                進捗: <a href='http://isucon.net/archives/53570241.html'>ISUCON9</a>
+                {' '}本選出場
               </p>
               <p>Comming soon</p>
+            </Section>
+            <Section id='PageIndex-Links' title='リンク'>
+              <Section title='サイト'>
+                <ul className='BasePage-NormalList'>
+                  <li>
+                    akouryy.net
+                    <ul>
+                      <li><Link href='/'>トップページ</Link></li>
+                    </ul>
+                  </li>
+                  <li>
+                    akouryy.hatenablog.jp{' '}
+                    <a href='https://akouryy.hatenablog.jp'>
+                      プログラミングのブログ(更新頻度低)
+                    </a>
+                  </li>
+                </ul>
+              </Section>
+              <Section title='各種アカウント'>
+                <ul className='BasePage-NormalList'>
+                  <li>
+                    Twitter: <a href='https://twitter.com/akouryy1'>@akouryy1</a>
+                  </li>
+                  <li>
+                    AtCoder: <a href='https://atcoder.jp/users/akouryy'>@akouryy</a>
+                  </li>
+                </ul>
+              </Section>
             </Section>
           </main>
         </div>
