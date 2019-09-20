@@ -36,7 +36,7 @@ export const useScrollProps = (): ScrollProps => {
   const [props, update] = React.useState(calcScrollProps());
 
   React.useEffect(() => {
-    const handler = throttle(() => update(calcScrollProps()), 50);
+    const handler = throttle(() => update(calcScrollProps()), 30);
     document.addEventListener('scroll', handler);
     window.addEventListener('resize', handler);
     return (): void => {

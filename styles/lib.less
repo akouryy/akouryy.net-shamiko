@@ -16,6 +16,13 @@
   justify-content: center;
 }
 
+.basic-font() {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
 @z-index: {
   modal: 10009;
 }
@@ -30,7 +37,8 @@
   background: @color-day-bg;
   color: @color-day-fg;
 
-  a {
+  // @see LinkButton.less
+  a, .LinkButton {
     color: @color-day-fg-link;
   }
 }
@@ -45,7 +53,8 @@
   background: @color-night-bg;
   color: @color-night-fg;
 
-  a {
+  // @see LinkButton.less
+  a, .LinkButton {
     color: @color-night-fg-link;
   }
 }

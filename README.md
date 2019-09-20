@@ -3,7 +3,7 @@ akouryy.net v8
 
 ## ライセンス (LICENSE)
 
-&copy; akouryy 2019, all rights reserved.
+&copy; akouryy 2019
 
 本レポジトリのソースコードは[Apache License 2.0](LICENSE)の下提供されています。
 

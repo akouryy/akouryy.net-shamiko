@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-scroll';
+import { Link, animateScroll } from 'react-scroll';
 import { ScrollContext } from '../contexts/ScrollContext';
 import '../styles/BigHeader.less';
+import { LinkButton } from './LinkButton';
 
 interface P {
   menu: ReadonlyArray<[string, string]>;
@@ -26,23 +27,48 @@ export const BigHeader: React.FC<P> = (props) => {
     }
   }, [isNightDominant]);
 
-  return (<BigHeaderPure {...props} />);
+  if(scrollTop < winHeight - 48) {
+    return (<BigHeaderHero {...props} />);
+  } else {
+    return (<BigHeaderFixed {...props} />);
+  }
 };
 
-const BigHeaderPure: React.FC<P> = React.memo(({ menu }) => {
+const BigHeaderHero: React.FC<P> = React.memo(({ menu }) => {
   return (
-    <header className='BigHeader'>
-      <h1 className='BigHeader-Title'>akouryy.net</h1>
+    <header className='BigHeaderHero'>
+      <h1 className='BigHeaderHero-Title'>akouryy.net</h1>
 
-      <ul className='BigHeader-Menu'>
+      <ul className='BigHeaderHero-Menu'>
         {menu.map(([to, title]) => (
-          <li className='BigHeader-MenuItem' key={to}>
-            <Link duration={500} smooth to={to}>
+          <li className='BigHeaderHero-MenuItem' key={to}>
+            <Link duration={500} offset={-48} smooth to={to}>
               {title}
             </Link>
           </li>
         ))}
       </ul>
     </header>
+  );
+});
+
+const BigHeaderFixed: React.FC<P> = React.memo(() => {
+  const onClick = React.useCallback(
+    (): void => animateScroll.scrollToTop({ duration: 500 }),
+    [],
+  );
+
+  return (
+    <>
+      <div className='BigHeaderHero' />
+
+      <header className='BigHeaderFixed'>
+        <h1 className='BigHeaderFixed-Title'>
+          <LinkButton classNames='BigHeaderFixed-TitleLink' onClick={onClick}>
+            akouryy.net
+          </LinkButton>
+        </h1>
+      </header>
+    </>
   );
 });
