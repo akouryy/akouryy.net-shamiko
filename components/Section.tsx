@@ -3,7 +3,7 @@ import '../styles/Section.less';
 
 interface P {
   id?: string;
-  title: string;
+  title: string | JSX.Element;
 }
 
 export const Section: React.FC<P> = ({ children, id, title }) => {

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
-import '../styles/BasePage.less';
 import 'normalize.css';
+import '../styles/BasePage.less';
 import { useScrollProps, ScrollContext } from '../contexts/ScrollContext';
 
 interface P {

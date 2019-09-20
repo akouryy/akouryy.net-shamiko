@@ -9,6 +9,9 @@ extends:
   - airbnb
 
 overrides:
+  - files: [components/*.tsx]
+    rules:
+      '@typescript-eslint/no-empty-interface': off
   - files: [pages/*.tsx]
     rules:
       import/no-default-export: off

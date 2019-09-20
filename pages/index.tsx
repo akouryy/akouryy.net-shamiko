@@ -12,7 +12,11 @@ const headerMenu: ReadonlyArray<[string, string]> = Object.freeze([
   ['PageIndex-Links', 'links'],
 ]);
 
-const Home: React.FC = () => {
+interface P {
+  children?: never;
+}
+
+const PageIndex: React.FC<P> = () => {
   return (
     <BasePage canonical='/'>
       <div className='PageIndex'>
@@ -43,16 +47,18 @@ const Home: React.FC = () => {
               <Section title='サイト'>
                 <ul className='BasePage-NormalList'>
                   <li>
-                    akouryy.net
+                    akouryy.net:
                     <ul>
                       <li><Link href='/'>トップページ</Link></li>
+                      <li><Link href='/info'>このサイトについて</Link></li>
                     </ul>
                   </li>
                   <li>
-                    akouryy.hatenablog.jp{' '}
+                    akouryy.hatenablog.jp:{' '}
                     <a href='https://akouryy.hatenablog.jp'>
-                      プログラミングのブログ(更新頻度低)
+                      Lを探す日常
                     </a>
+                    {' '}(プログラミングのブログ、更新頻度低)
                   </li>
                 </ul>
               </Section>
@@ -75,4 +81,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default PageIndex;
