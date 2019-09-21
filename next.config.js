@@ -1,5 +1,5 @@
 const withCSS = require('@zeit/next-css')
-const withLess = require('@zeit/next-less');
+const withLess = require('@akouryy/next-less');
 
 module.exports = withCSS(withLess({
   exportPathMap: () => ({
