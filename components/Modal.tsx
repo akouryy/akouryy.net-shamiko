@@ -20,7 +20,14 @@ export const Modal: React.FC<P> = ({ children, hider }) => {
       role='button'
       tabIndex={0}
     >
-      <div className='Modal'>
+      {/* eslint-disable
+        jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+      <div
+        className='Modal'
+        onClick={(ev): void => ev.stopPropagation()}
+      >
+        {/* eslint-enable
+          jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
         {children}
       </div>
     </div>

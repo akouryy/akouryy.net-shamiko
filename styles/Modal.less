@@ -2,16 +2,33 @@
 
 .Modal {
   .center-flex();
-  background: @color-night-bg;
-  box-shadow: 0 0 5rem -2rem rgba(white, 0.1);
+  flex-direction: column;
   min-height: 10rem;
   min-width: 20rem;
+
+  .Root-_Day & {
+    background: @color-day-bg;
+    box-shadow: 0 0 5rem -2rem rgba(@color-night-bg, 0.2);
+    border-radius: 0.2rem;
+  }
+  .Root-_Night & {
+    background: @color-night-bg;
+    box-shadow: 0 0 5rem -2rem rgba(white, 0.1);
+  }
 
   &-Background {
     .full-box();
     .center-flex();
-    background: rgba(white, 0.1);
+    left: 0;
     position: fixed;
+    top: 0;
     z-index: @z-index[modal];
+
+    .Root-_Day & {
+      background: rgba(@color-night-bg, 0.3);
+    }
+    .Root-_Night & {
+      background: rgba(white, 0.1);
+    }
   }
 }
