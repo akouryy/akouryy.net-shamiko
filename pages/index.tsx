@@ -38,8 +38,7 @@ const PageIndex: React.FC<P> = () => {
             <Section id='PageIndex-Programming' title='プログラミング'>
               <p>プログラミングが好きです</p>
               <p>
-                進捗: <a href='http://isucon.net/archives/53570241.html'>ISUCON9</a>
-                {' '}本選出場
+                進捗:
               </p>
               <p>Comming soon</p>
             </Section>
