@@ -74,7 +74,6 @@ const PageIndex: React.FC<P> = () => {
             </Section>
           </main>
         </div>
-        <footer>&copy; akouryy 2019</footer>
       </div>
     </BasePage>
   );

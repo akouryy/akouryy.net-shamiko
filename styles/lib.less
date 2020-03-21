@@ -29,10 +29,13 @@
 
 @z-index: {
   modal: 10009;
+  big-header-hero-fg: 1101;
+  big-header-hero-bg: 1001;
 }
 
-@color-day-bg: #edeaf2;
-@color-day-bg-pale: darken(@color-day-bg, 10%);
+@color-day-bg-raw: #edeaf2;
+@color-day-bg: lighten(#edeaf2, 1%);
+@color-day-bg-pale: darken(@color-day-bg-raw, 10%);
 
 @color-day-fg: #08040c;
 @color-day-fg-link: (@color-day-fg * 0.2 + #0000ff * 0.8);

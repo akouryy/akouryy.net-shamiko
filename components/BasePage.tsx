@@ -21,6 +21,7 @@ export const BasePage: React.FC<P> = ({ canonical, children, title }) => {
         )}
       </Head>
       {children}
+      <footer>&copy; akouryy 2019-2020</footer>
     </ScrollContext.Provider>
   );
 };
