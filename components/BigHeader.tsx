@@ -4,6 +4,7 @@ import { ScrollContext } from '../contexts/ScrollContext';
 import '../styles/BigHeader.less';
 import { BigHeaderAnime } from './BigHeaderAnime';
 import { LinkButton } from './LinkButton';
+import { namedMemo } from '../lib/namedComponent';
 
 interface P {
   menu: ReadonlyArray<[string, string]>;
@@ -11,7 +12,8 @@ interface P {
 }
 
 export const BigHeader: React.FC<P> = (props) => {
-  const { winHeight, scrollTop } = React.useContext(ScrollContext);
+  const sc = React.useContext(ScrollContext);
+  const { winHeight, scrollTop } = sc || { winHeight: 10000, scrollTop: 0 };
   const isNightDominant = scrollTop < winHeight / 2;
 
   React.useEffect(() => {
@@ -35,7 +37,7 @@ export const BigHeader: React.FC<P> = (props) => {
   }
 };
 
-const BigHeaderHero: React.FC<P> = React.memo(({ menu }) => {
+const BigHeaderHero: React.FC<P> = namedMemo('BigHeaderHero', ({ menu }) => {
   return (
     <header className='BigHeaderHero'>
       <div className='BigHeaderHero-ForeGround'>
@@ -57,7 +59,7 @@ const BigHeaderHero: React.FC<P> = React.memo(({ menu }) => {
   );
 });
 
-const BigHeaderFixed: React.FC<P> = React.memo(() => {
+const BigHeaderFixed: React.FC<P> = namedMemo('BigHeaderFixed', () => {
   const onClick = React.useCallback(
     (): void => animateScroll.scrollToTop({ duration: 1000 }),
     [],
