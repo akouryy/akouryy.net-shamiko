@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, animateScroll } from 'react-scroll'
+import { Link as ScrollLink, animateScroll } from 'react-scroll'
 import { ScrollContext } from '../contexts/ScrollContext'
 import '../styles/BigHeader.less'
 import { namedMemo } from '../lib/namedComponent'
@@ -43,11 +43,11 @@ const BigHeaderHero = namedMemo<P>('BigHeaderHero', ({ menu }) => {
         <h1 className='BigHeaderHero-Title'>akouryy.net</h1>
 
         <ul className='BigHeaderHero-Menu'>
-          {menu.map(([to, title]) => (
+          {menu.map(([to, title], i) => (
             <li className='BigHeaderHero-MenuItem' key={to}>
-              <Link duration={1000} offset={-48} smooth to={to}>
+              <ScrollLink duration={300 * (i + 1.5)} offset={-48} smooth to={to}>
                 {title}
-              </Link>
+              </ScrollLink>
             </li>
           ))}
         </ul>

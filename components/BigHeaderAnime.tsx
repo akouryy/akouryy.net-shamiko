@@ -1,4 +1,3 @@
-import { times } from 'lodash'
 import React from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import '../styles/BigHeaderAnime.less'
@@ -32,9 +31,9 @@ class Squircle {
 export const BigHeaderAnime: React.FC = withNonNullScrollProps(
   'BigHeaderAnime',
   ({ scroll: { docWidth, winHeight } }) => {
-    const [squircles, updateSquircles] = React.useState(Array<Squircle>())
+    const [squircles] = React.useState(Array<Squircle>())
 
-    React.useEffect(() => {
+    /* React.useEffect(() => {
       const newSquircles = times(24).map<Squircle>((i) => new Squircle(
         docWidth / 4 * (i % 4), docWidth / 4 * (1 + i % 4),
         winHeight / 3 * Math.floor(i / 4 % 3), winHeight / 3 * (1 + Math.floor(i / 4 % 3)),
@@ -43,7 +42,7 @@ export const BigHeaderAnime: React.FC = withNonNullScrollProps(
         60, 120,
       ))
       updateSquircles(newSquircles)
-    }, [docWidth, winHeight])
+    }, [docWidth, winHeight]) */
 
     return (
       <svg
