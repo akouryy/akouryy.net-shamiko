@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
-import '../styles/PageIndex.less'
 import { BasePage } from '../components/BasePage'
 import { BigHeader } from '../components/BigHeader'
+import { ExternalLink } from '../components/ExternalLink'
 import { Section } from '../components/Section'
+import '../styles/PageIndex.less'
 
 const headerMenu: ReadonlyArray<[string, string]> = Object.freeze([
   ['PageIndex-Profile', 'profile'],
@@ -28,19 +29,53 @@ const PageIndex: React.FC<P> = () => {
             <Section id='PageIndex-Profile' title='自己紹介'>
               <p>@akouryy</p>
               <p>東京大学理学部情報科学科 在学中</p>
-              <p>Comming soon</p>
             </Section>
             <Section id='PageIndex-Contact' title='連絡先'>
               <p>メールアドレスは公開していません</p>
               <p><a href='https://twitter.com/akouryy1'>Twitter @akouryy1</a></p>
-              <p>Comming soon</p>
             </Section>
             <Section id='PageIndex-Programming' title='プログラミング'>
               <p>プログラミングが好きです</p>
               <p>
-                進捗:
+                進捗: -
               </p>
-              <p>Comming soon</p>
+              <section>
+                実績:
+                <ul>
+                  <li>
+                    競技プログラミング
+                    <ul>
+                      <li>
+                        <ExternalLink follow href='https://codingcompetitions.withgoogle.com/codejam'>
+                          Google Code Jam
+                        </ExternalLink>
+                        {' '}
+                        2020 Round3 出場
+                      </li>
+                      <li>Google Code Jam 2019 Round3 出場権獲得</li>
+                      <li>
+                        第15回
+                        <ExternalLink follow href='https://www.ioi-jp.org'>日本情報オリンピック</ExternalLink>
+                        {' '}
+                        (2015-2016) 本選出場、春合宿参加
+                      </li>
+                      <li>第14回日本情報オリンピック (2014-2015) 本選出場、春合宿参加</li>
+                      <li>第13回日本情報オリンピック (2013-2014) 本選出場</li>
+                    </ul>
+                  </li>
+                  <li>
+                    その他
+                    <ul>
+                      <li>
+                        <ExternalLink follow href='http://isucon.net'>ISUCON</ExternalLink>
+                        10 (2020) 本選出場権獲得
+                      </li>
+                      <li>ISUCON9 (2019) 本選出場</li>
+                      <li>ISUCON8 (2018) 本選出場</li>
+                    </ul>
+                  </li>
+                </ul>
+              </section>
             </Section>
             <Section id='PageIndex-Links' title='リンク'>
               <Section title='サイト'>
@@ -69,6 +104,11 @@ const PageIndex: React.FC<P> = () => {
                     Twitter:
                     {' '}
                     <a href='https://twitter.com/akouryy1'>@akouryy1</a>
+                  </li>
+                  <li>
+                    GitHub:
+                    {' '}
+                    <a href='https://github.com/akouryy'>@akouryy</a>
                   </li>
                   <li>
                     AtCoder:

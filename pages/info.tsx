@@ -55,12 +55,7 @@ const PageInfo: React.FC<P> = () => {
             サーバー:
             {' '}
             <ExternalLink href='https://zeit.co'>
-              <ruby>
-                Zeit
-                <rp>[tsaɪ̯t]</rp>
-              </ruby>
-              {' '}
-              Now
+              Vercel Now
             </ExternalLink>
           </p>
         </Section>
