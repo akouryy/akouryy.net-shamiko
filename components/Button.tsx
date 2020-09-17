@@ -1,9 +1,9 @@
-import classnames from 'classnames';
-import React from 'react';
+import classnames from 'classnames'
+import React from 'react'
 
 interface P {
-  classNames?: Parameters<typeof classnames>[0];
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  classNames?: Parameters<typeof classnames>[0]
+  onClick: React.MouseEventHandler<HTMLButtonElement>
 }
 
 export const Button: React.FC<P> = React.memo(({ classNames, children, onClick }) => {
@@ -15,5 +15,5 @@ export const Button: React.FC<P> = React.memo(({ classNames, children, onClick }
     >
       {children}
     </button>
-  );
-});
+  )
+})

@@ -1,43 +1,42 @@
-import React from 'react';
-import { Link, animateScroll } from 'react-scroll';
-import { ScrollContext } from '../contexts/ScrollContext';
-import '../styles/BigHeader.less';
-import { BigHeaderAnime } from './BigHeaderAnime';
-import { LinkButton } from './LinkButton';
-import { namedMemo } from '../lib/namedComponent';
+import React from 'react'
+import { Link, animateScroll } from 'react-scroll'
+import { ScrollContext } from '../contexts/ScrollContext'
+import '../styles/BigHeader.less'
+import { namedMemo } from '../lib/namedComponent'
+import { BigHeaderAnime } from './BigHeaderAnime'
+import { LinkButton } from './LinkButton'
 
 interface P {
-  menu: ReadonlyArray<[string, string]>;
-  children?: never;
+  menu: ReadonlyArray<[string, string]>
+  children?: never
 }
 
 export const BigHeader: React.FC<P> = (props) => {
-  const sc = React.useContext(ScrollContext);
-  const { winHeight, scrollTop } = sc || { winHeight: 10000, scrollTop: 0 };
-  const isNightDominant = scrollTop < winHeight / 2;
+  const sc = React.useContext(ScrollContext)
+  const { winHeight, scrollTop } = sc ?? { winHeight: 10000, scrollTop: 0 }
+  const isNightDominant = scrollTop < winHeight / 2
 
   React.useEffect(() => {
-    const rootDayClass = 'Root-_Day';
-    const rootNightClass = 'Root-_Night';
+    const rootDayClass = 'Root-_Day'
+    const rootNightClass = 'Root-_Night'
 
-    const cl = document.documentElement.classList;
-    if(isNightDominant) {
-      cl.add(rootNightClass);
-      cl.remove(rootDayClass);
+    const cl = document.documentElement.classList
+    if (isNightDominant) {
+      cl.add(rootNightClass)
+      cl.remove(rootDayClass)
     } else {
-      cl.add(rootDayClass);
-      cl.remove(rootNightClass);
+      cl.add(rootDayClass)
+      cl.remove(rootNightClass)
     }
-  }, [isNightDominant]);
+  }, [isNightDominant])
 
-  if(scrollTop < winHeight - 48) {
-    return (<BigHeaderHero {...props} />);
-  } else {
-    return (<BigHeaderFixed {...props} />);
+  if (scrollTop < winHeight - 48) {
+    return (<BigHeaderHero {...props} />)
   }
-};
+  return (<BigHeaderFixed {...props} />)
+}
 
-const BigHeaderHero: React.FC<P> = namedMemo('BigHeaderHero', ({ menu }) => {
+const BigHeaderHero = namedMemo<P>('BigHeaderHero', ({ menu }) => {
   return (
     <header className='BigHeaderHero'>
       <div className='BigHeaderHero-ForeGround'>
@@ -56,14 +55,14 @@ const BigHeaderHero: React.FC<P> = namedMemo('BigHeaderHero', ({ menu }) => {
 
       <BigHeaderAnime />
     </header>
-  );
-});
+  )
+})
 
 const BigHeaderFixed: React.FC<P> = namedMemo('BigHeaderFixed', () => {
   const onClick = React.useCallback(
     (): void => animateScroll.scrollToTop({ duration: 1000 }),
     [],
-  );
+  )
 
   return (
     <>
@@ -77,5 +76,5 @@ const BigHeaderFixed: React.FC<P> = namedMemo('BigHeaderFixed', () => {
         </h1>
       </header>
     </>
-  );
-});
+  )
+})

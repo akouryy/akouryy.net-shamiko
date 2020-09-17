@@ -1,9 +1,9 @@
-import classnames from 'classnames';
-import React from 'react';
+import classnames from 'classnames'
+import React from 'react'
 
 interface P {
-  follow?: boolean;
-  href: string;
+  follow?: boolean
+  href: string
 }
 
 export const ExternalLink: React.FC<P> = ({ children, follow, href }) => {
@@ -16,5 +16,5 @@ export const ExternalLink: React.FC<P> = ({ children, follow, href }) => {
     >
       {children}
     </a>
-  );
-};
+  )
+}

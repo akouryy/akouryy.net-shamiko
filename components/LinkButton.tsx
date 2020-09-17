@@ -1,10 +1,10 @@
-import classnames from 'classnames';
-import React from 'react';
-import '../styles/LinkButton.less';
+import classnames from 'classnames'
+import React from 'react'
+import '../styles/LinkButton.less'
 
 interface P {
-  classNames?: Parameters<typeof classnames>[0];
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  classNames?: Parameters<typeof classnames>[0]
+  onClick: React.MouseEventHandler<HTMLButtonElement>
 }
 
 export const LinkButton: React.FC<P> = React.memo(({ classNames, children, onClick }) => {
@@ -16,5 +16,5 @@ export const LinkButton: React.FC<P> = React.memo(({ classNames, children, onCli
     >
       {children}
     </button>
-  );
-});
+  )
+})

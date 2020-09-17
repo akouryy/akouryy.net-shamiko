@@ -1,48 +1,49 @@
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import '../styles/BigHeaderAnime.less';
-import { withNonNullScrollProps } from '../contexts/ScrollContext';
-import { namedMemo } from '../lib/namedComponent';
+import { times } from 'lodash'
+import React from 'react'
+import { v4 as uuidv4 } from 'uuid'
+import '../styles/BigHeaderAnime.less'
+import { withNonNullScrollProps } from '../contexts/ScrollContext'
+import { namedMemo } from '../lib/namedComponent'
 
 class Squircle {
-  id: string;
-  x: number;
-  y: number;
-  size: number;
-  rotateDuration: number;
-  speed: number;
-  isClockwise: boolean;
+  id: string
+  x: number
+  y: number
+  size: number
+  rotateDuration: number
+  speed: number
+  isClockwise: boolean
 
   constructor(
     xMin: number, xMax: number, yMin: number, yMax: number,
     sizeMin: number, sizeMax: number, durMin: number, durMax: number,
     speedMin: number, speedMax: number,
   ) {
-    this.id = uuidv4();
-    this.x = xMin + Math.random() * (xMax - xMin);
-    this.y = yMin + Math.random() * (yMax - yMin);
-    this.size = sizeMin + Math.random() * (sizeMax - sizeMin);
-    this.rotateDuration = durMin + Math.random() * (durMax - durMin);
-    this.speed = speedMin + Math.random() * (speedMax - speedMin);
-    this.isClockwise = Math.random() < 0.5;
+    this.id = uuidv4()
+    this.x = xMin + Math.random() * (xMax - xMin)
+    this.y = yMin + Math.random() * (yMax - yMin)
+    this.size = sizeMin + Math.random() * (sizeMax - sizeMin)
+    this.rotateDuration = durMin + Math.random() * (durMax - durMin)
+    this.speed = speedMin + Math.random() * (speedMax - speedMin)
+    this.isClockwise = Math.random() < 0.5
   }
 }
 
 export const BigHeaderAnime: React.FC = withNonNullScrollProps(
   'BigHeaderAnime',
   ({ scroll: { docWidth, winHeight } }) => {
-    const [squircles, updateSquircles] = React.useState(Array<Squircle>());
+    const [squircles, updateSquircles] = React.useState(Array<Squircle>())
 
     React.useEffect(() => {
-      const newSquircles = [...Array(24)].map<Squircle>((_, i) => new Squircle(
+      const newSquircles = times(24).map<Squircle>((i) => new Squircle(
         docWidth / 4 * (i % 4), docWidth / 4 * (1 + i % 4),
         winHeight / 3 * Math.floor(i / 4 % 3), winHeight / 3 * (1 + Math.floor(i / 4 % 3)),
         20, 150,
         5, 30,
         60, 120,
-      ));
-      updateSquircles(newSquircles);
-    }, [docWidth, winHeight]);
+      ))
+      updateSquircles(newSquircles)
+    }, [docWidth, winHeight])
 
     return (
       <svg
@@ -53,12 +54,12 @@ export const BigHeaderAnime: React.FC = withNonNullScrollProps(
           <BigHeaderAnimeSquircle docWidth={docWidth} key={squircle.id} {...squircle} />
         ))}
       </svg>
-    );
+    )
   },
-);
+)
 
 type SquircleProps = Squircle & {
-  docWidth: number;
+  docWidth: number
 }
 
 const BigHeaderAnimeSquircle: React.FC<SquircleProps> = namedMemo('BigHeaderAnimeSquircle', ({
@@ -67,8 +68,8 @@ const BigHeaderAnimeSquircle: React.FC<SquircleProps> = namedMemo('BigHeaderAnim
   return (
     <>
       {[-1, 0, 1].map((d) => {
-        const x = x0 + docWidth * d;
-        const s = size / 2;
+        const x = x0 + docWidth * d
+        const s = size / 2
         return (
           <path
             className='BigHeaderAnimeSquircle'
@@ -79,6 +80,7 @@ const BigHeaderAnimeSquircle: React.FC<SquircleProps> = namedMemo('BigHeaderAnim
               s 0,-${s} -${s},-${s}
               s -${s},0 -${s},${s} Z
             `}
+            key={d}
             transform-origin={`${x} ${y}`}
             strokeWidth={3}
           >
@@ -112,8 +114,8 @@ const BigHeaderAnimeSquircle: React.FC<SquircleProps> = namedMemo('BigHeaderAnim
               type='rotate'
             />
           </path>
-        );
+        )
       })}
     </>
-  );
-});
+  )
+})

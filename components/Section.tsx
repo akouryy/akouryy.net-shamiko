@@ -1,9 +1,9 @@
-import React from 'react';
-import '../styles/Section.less';
+import React from 'react'
+import '../styles/Section.less'
 
 interface P {
-  id?: string;
-  title: string | JSX.Element;
+  id?: string
+  title: string | JSX.Element
 }
 
 export const Section: React.FC<P> = ({ children, id, title }) => {
@@ -12,5 +12,5 @@ export const Section: React.FC<P> = ({ children, id, title }) => {
       <h1 className='Section-Title'>{title}</h1>
       {children}
     </section>
-  );
-};
+  )
+}

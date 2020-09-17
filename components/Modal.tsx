@@ -1,16 +1,16 @@
-import React from 'react';
-import '../styles/Modal.less';
+import React from 'react'
+import '../styles/Modal.less'
 
 interface P {
-  hider: (_: false) => void;
+  hider: (_: false) => void
 }
 
 export const Modal: React.FC<P> = ({ children, hider }) => {
   const onKeyPress = (ev: React.KeyboardEvent<HTMLDivElement>): void => {
-    if(ev.key === 'Escape') {
-      hider(false);
+    if (ev.key === 'Escape') {
+      hider(false)
     }
-  };
+  }
 
   return (
     <div
@@ -31,5 +31,5 @@ export const Modal: React.FC<P> = ({ children, hider }) => {
         {children}
       </div>
     </div>
-  );
-};
+  )
+}

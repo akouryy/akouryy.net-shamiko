@@ -1,19 +1,19 @@
-import React from 'react';
-import Link from 'next/link';
-import '../styles/PageIndex.less';
-import { BasePage } from '../components/BasePage';
-import { BigHeader } from '../components/BigHeader';
-import { Section } from '../components/Section';
+import Link from 'next/link'
+import React from 'react'
+import '../styles/PageIndex.less'
+import { BasePage } from '../components/BasePage'
+import { BigHeader } from '../components/BigHeader'
+import { Section } from '../components/Section'
 
 const headerMenu: ReadonlyArray<[string, string]> = Object.freeze([
   ['PageIndex-Profile', 'profile'],
   ['PageIndex-Contact', 'contact'],
   ['PageIndex-Programming', 'programming'],
   ['PageIndex-Links', 'links'],
-]);
+])
 
 interface P {
-  children?: never;
+  children?: never
 }
 
 const PageIndex: React.FC<P> = () => {
@@ -53,21 +53,27 @@ const PageIndex: React.FC<P> = () => {
                     </ul>
                   </li>
                   <li>
-                    akouryy.hatenablog.jp:{' '}
+                    akouryy.hatenablog.jp:
+                    {' '}
                     <a href='https://akouryy.hatenablog.jp'>
                       Lを探す日常
                     </a>
-                    {' '}(プログラミングのブログ、更新頻度低)
+                    {' '}
+                    (プログラミングのブログ、更新頻度低)
                   </li>
                 </ul>
               </Section>
               <Section title='各種アカウント'>
                 <ul className='BasePage-NormalList'>
                   <li>
-                    Twitter: <a href='https://twitter.com/akouryy1'>@akouryy1</a>
+                    Twitter:
+                    {' '}
+                    <a href='https://twitter.com/akouryy1'>@akouryy1</a>
                   </li>
                   <li>
-                    AtCoder: <a href='https://atcoder.jp/users/akouryy'>@akouryy</a>
+                    AtCoder:
+                    {' '}
+                    <a href='https://atcoder.jp/users/akouryy'>@akouryy</a>
                   </li>
                 </ul>
               </Section>
@@ -76,7 +82,7 @@ const PageIndex: React.FC<P> = () => {
         </div>
       </div>
     </BasePage>
-  );
-};
+  )
+}
 
-export default PageIndex;
+export default PageIndex

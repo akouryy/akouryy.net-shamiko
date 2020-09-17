@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import React from 'react';
-import '../styles/HeaderFixed.less';
+import Link from 'next/link'
+import React from 'react'
+import '../styles/HeaderFixed.less'
 
 interface P {
-  children?: never;
+  children?: never
 }
 
 export const HeaderFixed: React.FC<P> = () => {
@@ -20,5 +20,5 @@ export const HeaderFixed: React.FC<P> = () => {
       </header>
       <div className='HeaderFixed-BodyMargin' />
     </>
-  );
+  )
 }
