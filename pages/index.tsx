@@ -35,12 +35,12 @@ const PageIndex: React.FC<P> = () => {
               <p><a href='https://twitter.com/akouryy1'>Twitter @akouryy1</a></p>
             </Section>
             <Section id='PageIndex-Programming' title='プログラミング'>
-              <p>プログラミングが好きです</p>
-              <p>
-                進捗: -
-              </p>
-              <section>
-                実績:
+              <Section title=''>
+                プログラミングが好きです
+                <br />
+                よく使う言語: Scala, TypeScript, Ruby, C++
+              </Section>
+              <Section title='実績'>
                 <ul>
                   <li>
                     競技プログラミング
@@ -68,14 +68,14 @@ const PageIndex: React.FC<P> = () => {
                     <ul>
                       <li>
                         <ExternalLink follow href='http://isucon.net'>ISUCON</ExternalLink>
-                        10 (2020) 本選出場権獲得
+                        10 (2020) 本選6位
                       </li>
                       <li>ISUCON9 (2019) 本選出場</li>
                       <li>ISUCON8 (2018) 本選出場</li>
                     </ul>
                   </li>
                 </ul>
-              </section>
+              </Section>
             </Section>
             <Section id='PageIndex-Links' title='リンク'>
               <Section title='サイト'>
@@ -88,13 +88,10 @@ const PageIndex: React.FC<P> = () => {
                     </ul>
                   </li>
                   <li>
-                    akouryy.hatenablog.jp:
-                    {' '}
                     <a href='https://akouryy.hatenablog.jp'>
-                      Lを探す日常
+                      Lを探す日常 (akouryy.hatenablog.jp)
                     </a>
-                    {' '}
-                    (プログラミングのブログ、更新頻度低)
+                    : プログラミングのブログ、更新頻度低
                   </li>
                 </ul>
               </Section>
