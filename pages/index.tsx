@@ -28,7 +28,7 @@ const PageIndex: React.FC<P> = () => {
           <main className='PageIndex-Main'>
             <Section id='PageIndex-Profile' title='自己紹介'>
               <p>@akouryy</p>
-              <p>東京大学理学部情報科学科 在学中</p>
+              <p>東京大学大学院情報理工学系研究科コンピュータ科学専攻 在学中</p>
             </Section>
             <Section id='PageIndex-Contact' title='連絡先'>
               <p>メールアドレスは公開していません</p>

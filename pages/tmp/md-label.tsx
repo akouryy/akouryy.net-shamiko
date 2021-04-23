@@ -10,6 +10,7 @@ import { LinkButton } from '../../components/LinkButton'
 import { Modal } from '../../components/Modal'
 import { Page } from '../../components/Page'
 import { Section } from '../../components/Section'
+import { NoChild } from '../../lib/reactutil/NoChild'
 import { identity } from '../../lib/util'
 
 type DateLabel = 'morning' | 'noon' | 'night' | 'post'
@@ -79,12 +80,11 @@ interface LineFilter {
 
 /// /////////////////////////////////////////////////////////////////////////////
 const MdLineView: React.FC<{
-  children?: never
   line: MdLine
   mergeTwoLines: (line: MdLine) => void
   startEditLine: (line: MdLine) => void
   updateLine: (line: MdLine) => void
-}> = ({ line, mergeTwoLines, startEditLine, updateLine }) => {
+} & NoChild> = ({ line, mergeTwoLines, startEditLine, updateLine }) => {
   return (
     <div className={classnames(
       'PageTmpMdLabel-MdLineView',
@@ -127,10 +127,9 @@ const MdLineView: React.FC<{
 
 /// /////////////////////////////////////////////////////////////////////////////
 const EditModal: React.FC<{
-  children?: never
   line: MdLine | null
   replaceLines: (oldID: string, ls: MdLine[]) => void
-}> = ({ line, replaceLines }) => {
+} & NoChild> = ({ line, replaceLines }) => {
   const [isShown, setShown] = React.useState(false)
   const [text, setText] = React.useState('')
 
@@ -175,11 +174,10 @@ const EditModal: React.FC<{
 
 /// /////////////////////////////////////////////////////////////////////////////
 const FilterSelect: React.FC<{
-  children?: never
   onUpdate: (v: string) => void
   options: Array<[string, string]>
   value: string
-}> = ({ onUpdate, options, value }) => {
+} & NoChild> = ({ onUpdate, options, value }) => {
   return (
     <select onChange={(ev) => onUpdate(ev.target.value)} value={value}>
       {options.map(([v, d]) => (
@@ -190,11 +188,8 @@ const FilterSelect: React.FC<{
 }
 
 /// /////////////////////////////////////////////////////////////////////////////
-interface P {
-  children?: never
-}
 
-const PageTmpMdLabel: React.FC<P> = () => {
+const PageTmpMdLabel: React.FC<NoChild> = () => {
   React.useEffect(() => {
     window.addEventListener('beforeunload', (ev) => {
       ev.returnValue = '変更は保存されません'
