@@ -1,0 +1,51 @@
+@import 'lib';
+
+.Main {
+  max-width: unset !important;
+}
+
+.BasePage-Footer {
+  display: none !important;
+}
+
+.HeaderFixed {
+  display: none !important;
+}
+
+.PageTmpTart {
+  &-EllipsisView {
+    .code-font() !important;
+    font-size: 0.9em;
+    body & { padding: 0.1rem !important; }
+  }
+}
+
+.TartView {
+  .code-font();
+  font-size: 0.9rem;
+
+  &-Details {
+    border-left: 1px solid #fcc;
+    margin-left: 0.25rem;
+    margin-top: 0.5rem;
+    padding-left: 0.25rem;
+  }
+
+  &-Table {
+    border-collapse: collapse;
+  }
+
+  &-Entry {
+    min-width: 5vw;
+  }
+
+  &-Entry, &-Result {
+    border: 1px solid #e83;
+  }
+
+  &-EntryWrapper, &-ResultWrapper {
+    max-height: 5.5rem;
+    overflow-y: auto;
+    word-break: break-all;
+  }
+}
