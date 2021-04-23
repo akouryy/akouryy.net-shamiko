@@ -8,10 +8,11 @@ interface P {
 
 export const ExternalLink: React.FC<P> = ({ children, follow, href }) => {
   return (
+    // (false positive)
+    // eslint-disable-next-line react/jsx-no-target-blank
     <a
       href={href}
       rel={classnames('noopener noreferrer', !follow && 'nofollow')}
-      // eslint-disable-next-line react/jsx-no-target-blank
       target='_blank'
     >
       {children}
