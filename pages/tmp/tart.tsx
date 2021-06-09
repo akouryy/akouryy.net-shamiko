@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useCallback, useState } from 'react'
+import { ChangeEvent, FC, MouseEvent, useState } from 'react'
 import '../../styles/PageTmpTart.less'
 import { LinkButton } from '../../components/LinkButton'
 import { Page } from '../../components/Page'
@@ -133,17 +133,23 @@ const TartView: FC<{ tree: TartTree } & NoChild> = ({ tree }) => {
 const PageTmpTart: FC<NoChild> = () => {
   const [tree, setTree] = useState<TartTree>({ entries: [], result: '', children: [] })
 
-  const fileChange = useCallback((ev: ChangeEvent<HTMLInputElement>) => {
+  const fileChange = (ev: ChangeEvent<HTMLInputElement>): void => {
     const reader = new FileReader()
     reader.onload = () => {
       setTree(JSON.parse(reader.result as string) as TartTree)
     }
     reader.readAsText(ev.target.files![0])
-  }, [setTree])
+  }
+
+  const fileClick = (ev: MouseEvent<HTMLInputElement>): void => {
+    if (ev.target instanceof HTMLInputElement) {
+      ev.target.value = ''
+    }
+  }
 
   return (
     <Page canonical='/tmp/tart' title='Tart Viewer'>
-      <input onChange={fileChange} type='file' />
+      <input onChange={fileChange} onClick={fileClick} type='file' />
       <TartView tree={tree} />
     </Page>
   )
