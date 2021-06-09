@@ -30,10 +30,6 @@ const PageIndex: React.FC<P> = () => {
               <p>@akouryy</p>
               <p>東京大学大学院情報理工学系研究科コンピュータ科学専攻 在学中</p>
             </Section>
-            <Section id='PageIndex-Contact' title='連絡先'>
-              <p>メールアドレスは公開していません</p>
-              <p><a href='https://twitter.com/akouryy1'>Twitter @akouryy1</a></p>
-            </Section>
             <Section id='PageIndex-Programming' title='プログラミング'>
               <Section title=''>
                 プログラミングが好きです
@@ -50,9 +46,10 @@ const PageIndex: React.FC<P> = () => {
                           Google Code Jam
                         </ExternalLink>
                         {' '}
-                        2020 Round3 出場
+                        2021 Round3 進出
                       </li>
-                      <li>Google Code Jam 2019 Round3 出場権獲得</li>
+                      <li>Google Code Jam 2020 Round3 進出</li>
+                      <li>Google Code Jam 2019 Round3 進出</li>
                       <li>
                         第15回
                         <ExternalLink follow href='https://www.ioi-jp.org'>日本情報オリンピック</ExternalLink>
@@ -97,11 +94,6 @@ const PageIndex: React.FC<P> = () => {
               </Section>
               <Section title='各種アカウント'>
                 <ul className='BasePage-NormalList'>
-                  <li>
-                    Twitter:
-                    {' '}
-                    <a href='https://twitter.com/akouryy1'>@akouryy1</a>
-                  </li>
                   <li>
                     GitHub:
                     {' '}
