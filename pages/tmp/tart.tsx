@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { ChangeEvent, FC, MouseEvent, useState } from 'react'
 import '../../styles/PageTmpTart.less'
 import { LinkButton } from '../../components/LinkButton'
@@ -5,8 +6,10 @@ import { Page } from '../../components/Page'
 import { NoChild } from '../../lib/reactutil/NoChild'
 
 const ELLIPSIS = 1 as const
+const PAREN = 2 as const
 
-type Fluit = string | Fluit[] | { t: typeof ELLIPSIS, s: string }
+type Fluit =
+  string | Fluit[] | { t: typeof ELLIPSIS, s: string } | { t: typeof PAREN, o: string, f: Fluit }
 
 function stringFluitToHTML(str: string): { __html: string } {
   let html = str.replaceAll(/&/g, '&amp;').replaceAll(/</g, '&lt;').replaceAll(/>/g, '&gt;')
@@ -44,7 +47,7 @@ function fluitToString(fluit: Fluit): string {
   return '…'
 }
 
-const FluitView: FC<{ fluit: Fluit } & NoChild> = ({ fluit }) => {
+const FluitView: FC<{ fluit: Fluit, level: number } & NoChild> = ({ fluit, level }) => {
   return (
     <span>
       {typeof fluit === 'string' ? (
@@ -52,9 +55,22 @@ const FluitView: FC<{ fluit: Fluit } & NoChild> = ({ fluit }) => {
         <span dangerouslySetInnerHTML={stringFluitToHTML(fluit)} />
       ) : Array.isArray(fluit) ? fluit.map((f, i) => (
         // eslint-disable-next-line react/no-array-index-key
-        <FluitView fluit={f} key={i} />
-      )) : (
+        <FluitView fluit={f} key={i} level={level} />
+      )) : fluit.t === ELLIPSIS ? (
         <EllipsisView s={fluit.s} />
+      ) : (
+        <>
+          <span className={classNames('FluitView-Paren', `_Level${level % 7}`)}>
+            {fluit.o}
+          </span>
+          <FluitView fluit={fluit.f} level={level + 1} />
+          <span className={classNames('FluitView-Paren', `_Level${level % 7}`)}>
+            {
+              fluit.o.replace('(', ')').replace('{', '}').replace('[', ']')
+                .replace('【', '】').replace('❰', '❱')
+            }
+          </span>
+        </>
       )}
     </span>
   )
@@ -98,7 +114,7 @@ const TartView: FC<{ tree: TartTree } & NoChild> = ({ tree }) => {
                     // eslint-disable-next-line react/no-array-index-key
                     <td key={i} className='TartView-Entry'>
                       <div className='TartView-EntryWrapper'>
-                        <FluitView fluit={e} />
+                        <FluitView fluit={e} level={0} />
                       </div>
                     </td>
                   ))}
@@ -112,7 +128,7 @@ const TartView: FC<{ tree: TartTree } & NoChild> = ({ tree }) => {
                 <tr className='TartView-Row'>
                   <td className='TartView-Result' colSpan={tree.entries.length}>
                     <div className='TartView-ResultWrapper'>
-                      <FluitView fluit={tree.result} />
+                      <FluitView fluit={tree.result} level={0} />
                     </div>
                   </td>
                 </tr>
