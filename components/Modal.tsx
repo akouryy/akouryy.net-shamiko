@@ -1,5 +1,4 @@
 import React from 'react'
-import '../styles/Modal.less'
 
 interface P {
   hider: (_: false) => void

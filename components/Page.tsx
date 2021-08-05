@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import React from 'react'
 import { BasePage } from './BasePage'
 import { HeaderFixed } from './HeaderFixed'
@@ -5,10 +6,11 @@ import { Main } from './Main'
 
 interface P {
   canonical?: string
+  className?: string
   title?: string
 }
 
-export const Page: React.FC<P> = ({ canonical, children, title }) => {
+export const Page: React.FC<P> = ({ canonical, children, className, title }) => {
   React.useEffect(() => {
     const cl = document.documentElement.classList
     cl.add('Root-_Day')
@@ -16,7 +18,7 @@ export const Page: React.FC<P> = ({ canonical, children, title }) => {
   }, [])
 
   return (
-    <BasePage canonical={canonical} title={title}>
+    <BasePage canonical={canonical} className={classNames('Page', className)} title={title}>
       <HeaderFixed />
       <Main>
         {children}

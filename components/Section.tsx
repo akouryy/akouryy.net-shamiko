@@ -1,5 +1,4 @@
 import React from 'react'
-import '../styles/Section.less'
 
 interface P {
   id?: string

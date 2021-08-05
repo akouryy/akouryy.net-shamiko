@@ -1,0 +1,389 @@
+@keyframes BigHeaderAnimeBG
+  0%
+    background-position: 0vw 0vh
+  100%
+    background-position: -400vw 0vh
+
+@mixin direct-box
+  margin: 0
+  padding: 0
+
+@mixin full-box
+  @include direct-box
+  height: 100%
+  width: 100%
+
+@mixin center-flex
+  align-content: space-around
+  align-items: center
+  display: flex
+  justify-content: center
+
+@mixin basic-font
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif
+
+@mixin code-font
+  font-family: 'Source Code Pro', Consolas, 'Courier New', Menlo, Monaco, 'Osaka−等幅', monospace
+
+$z-index-modal: 10009
+$z-index-big-header-hero-fg: 1101
+$z-index-big-header-hero-bg: 1001
+
+$color-day-bg-raw: #edeaf2
+$color-day-bg: lighten($color-day-bg-raw, 1%)
+$color-day-bg-pale: darken($color-day-bg-raw, 10%)
+
+$color-day-fg: #08040c
+$color-day-fg-link: mix($color-day-fg, #0000ff, 20%)
+
+@mixin day()
+  background: $color-day-bg
+  color: $color-day-fg
+
+  // @see LinkButton
+  a, .LinkButton
+    color: $color-day-fg-link
+
+$color-night-bg: #040206
+$color-night-bg-pale: lighten($color-night-bg, 10%)
+
+$color-night-fg: #dddafe
+$color-night-fg-link: mix($color-night-fg, #0000ff, 80%)
+
+@mixin night()
+  background: $color-night-bg
+  color: $color-night-fg
+
+  // @see LinkButton
+  a, .LinkButton
+    color: $color-night-fg-link
+
+:root
+  @include basic-font
+  font-size: 16px
+  height: 100%
+  line-height: 1.3
+  width: 100vw
+
+  &.Root-_Day
+    @include day
+
+  &.Root-_Night
+    @include night
+
+body
+  @include full-box
+  overflow-x: hidden
+
+#__next
+  @include full-box
+
+a
+  cursor: pointer
+  text-decoration: none
+
+code
+  @include code-font
+  background: #efefef
+  border: 1px solid #aaa
+  border-radius: 0.2em
+  font-size: 0.8em
+  // font-weight: normal;
+  margin: 0 0.15em
+  padding: 0.1em 0.15em 0
+  vertical-align: middle
+
+.BasePage
+  &-NormalList
+    li
+      &:not(:first-child)
+        margin-top: 0.25em
+
+      > ul
+        margin-top: 0.25em
+
+  &-Footer
+    display: flex
+    justify-content: center
+
+.BigHeader
+  &Anime
+    animation: BigHeaderAnimeBG 5s linear infinite
+    background: linear-gradient(to right, $color-night-bg, $color-night-bg 20%, #0a081a 30%, #080616 40%, #080616 60%, $color-night-bg 80%, $color-night-bg)
+    background-size: 500vw 100vh
+    height: 100%
+    position: relative
+    top: -100vh
+    width: 100%
+    z-index: $z-index-big-header-hero-bg
+
+    &Squircle
+      $stroke: #101224
+      fill: #00000000
+      stroke: $stroke
+      &:hover
+        stroke: lighten($stroke, 10%)
+        transition: stroke .5s ease
+
+  &Fixed
+    @include center-flex
+    @include night
+    height: 3rem
+    left: 0
+    position: fixed
+    right: 0
+    top: 0
+
+    &-Title
+      @include direct-box
+      font-size: 2rem
+
+    &-TitleLink
+      color: inherit !important
+      font-weight: bold
+
+  :root body &Hero
+    @include night
+    height: 100vh
+
+    &-ForeGround
+      @include center-flex
+      flex-direction: column
+      height: 100vh
+      pointer-events: none
+      position: relative
+      z-index: $z-index-big-header-hero-fg
+
+    &-Menu
+      @include direct-box
+      @include center-flex
+      list-style: none
+      margin: 3rem 0 0
+      pointer-events: auto
+
+    &-MenuItem
+      margin: 0 1rem
+
+    &-Title
+      font-size: 3rem
+
+.HeaderFixed
+  @include center-flex
+  @include night
+  height: 3rem
+  left: 0
+  position: fixed
+  right: 0
+  top: 0
+
+  &-BodyMargin
+    height: 3rem
+
+  &-Title
+    @include direct-box
+    color: mix($color-night-fg, white)
+    font-size: 2rem
+
+  &-TitleLink
+    color: inherit !important
+    font-weight: bold
+
+// @see day(), night()
+.LinkButton
+  @include basic-font
+  @include direct-box
+  background: none
+  border: none !important
+  cursor: pointer
+  padding: 0!important
+
+.Main
+  background: rgba(#fff, 20%)
+  padding: 0 1rem
+  margin: 0 1rem
+  max-width: 60rem
+  width: 100%
+
+  &-Container
+    @include center-flex
+
+.Modal
+  @include center-flex
+  flex-direction: column
+  min-height: 10rem
+  min-width: 20rem
+
+  .Root-_Day &
+    background: $color-day-bg
+    box-shadow: 0 0 5rem -2rem rgba($color-night-bg, 0.2)
+    border-radius: 0.2rem
+
+  .Root-_Night &
+    background: $color-night-bg
+    box-shadow: 0 0 5rem -2rem rgba(white, 0.1)
+
+  &-Background
+    @include full-box
+    @include center-flex
+    left: 0
+    position: fixed
+    top: 0
+    z-index: z-index-modal
+
+    .Root-_Day &
+      background: rgba($color-night-bg, 0.3)
+
+    .Root-_Night &
+      background: rgba(white, 0.1)
+
+.PageIndex
+  @include day
+
+  &-Main
+    background: rgba(#fff, 20%)
+    min-height: 100vh
+    padding: 0 1rem
+    margin: 0 1rem
+    max-width: 60rem
+    width: 100%
+
+  &-MainContainer
+    @include center-flex
+
+.PageTmpMdLabel
+  &-EditModal
+    &_TextArea
+      @include code-font
+
+  &-Lines
+    margin-top: 5rem
+
+  &-MdLineView
+    @include center-flex
+    align-items: flex-start
+    border-bottom: 1px solid #e6e6e6
+    flex-wrap: nowrap
+    justify-content: flex-start
+
+    &
+      $cat-colors: (prog: #fff6ee, infra: #eef6ff)
+      $date-percentages: (morning: 17%, noon: 37%, night: 57%, post: 77%)
+
+      @each $cat, $color in $cat-colors
+        @each $date, $percentage in $date-percentages
+          $grad-step00: "#0000,"
+          $grad-step01: "#0000 #{$percentage},"
+          $grad-step02: "#{$color} #{$percentage},"
+          $grad-step03: "#{$color} #{$percentage + 4%},"
+          $grad-step04: "#0000 #{$percentage + 4%},"
+          $grad-step05: "#0000 #{$percentage + 8%},"
+          $grad-step06: "#{$color} #{$percentage + 8%},"
+          $grad-step07: "#{$color} #{$percentage + 12%},"
+          $grad-step08: "#0000 #{$percentage + 12%},"
+          $grad-step09: "#0000 #{$percentage + 16%},"
+          $grad-step10: "#{$color} #{$percentage + 16%},"
+          $grad-step11: "#{$color} #{$percentage + 20%},"
+          $grad-step12: "#0000 #{$percentage + 20%},"
+          $grad-step13: "#0000"
+
+          &-_category_#{$cat}#{&}-_date_#{$date}
+            background-image: unquote("linear-gradient(to right, " + $grad-step00 + $grad-step01 + $grad-step02 + $grad-step03 + $grad-step04 + $grad-step05 + $grad-step06 + $grad-step07 + $grad-step08 + $grad-step09 + $grad-step10 + $grad-step11 + $grad-step12 + $grad-step13 + ")")
+
+      &-_priority_precious
+        background-color: #fcc
+
+      &-_priority_high
+        background-color: #fee
+
+    &-Menu
+      flex-shrink: 0
+      width: 5rem
+
+    &-Text
+      @include code-font
+      // background-color: @color-day-bg;
+      white-space: pre-wrap
+
+      .PageTmpMdLabel-MdLineView-_priority_precious &
+        border-bottom: 2px solid #f00
+
+      .PageTmpMdLabel-MdLineView-_priority_high &
+        border-bottom: 2px dotted #f00
+
+      .PageTmpMdLabel-MdLineView-_priority_low &
+        color: #888
+
+.PageTmpTart
+  &-EllipsisView
+    @include code-font()
+    font-size: 0.9em
+    body &
+      padding: 0.1rem !important
+
+  &-FluitView
+    &-Paren
+      &._Level0
+        color: #c00
+      &._Level1
+        color: #c70
+      &._Level2
+        color: #990
+      &._Level3
+        color: #1a0
+      &._Level4
+        color: #0cc
+      &._Level5
+        color: #00c
+      &._Level6
+        color: #909
+
+  &-Page
+    .BasePage-Footer
+      display: none !important
+
+    .HeaderFixed
+      display: none !important
+
+    .Main
+      max-width: unset !important
+
+  &-TartView
+    @include code-font
+    font-size: 0.9rem
+
+    &-Details
+      border-left: 1px solid #fcc
+      margin-left: 0.25rem
+      margin-top: 0.5rem
+      padding-left: 0.25rem
+
+    &-Table
+      border-collapse: collapse
+
+    &-Entry
+      min-width: 5vw
+
+    &-Entry, &-Result
+      border: 1px solid #e83
+
+    &-EntryWrapper, &-ResultWrapper
+      max-height: 5.5rem
+      overflow-y: auto
+      word-break: break-all
+
+.Section
+  margin-bottom: 3rem
+
+  &-Title
+    font-size: 2rem
+    margin-left: -0.2rem
+
+  .Section
+    margin: 0
+
+    .Section-Title
+      font-size: 1.5rem
+      margin-left: 0
+
+    .Section .Section-Title
+      font-size: 1.25rem

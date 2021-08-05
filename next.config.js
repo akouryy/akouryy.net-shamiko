@@ -1,7 +1,4 @@
-const withCSS = require('@zeit/next-css')
-const withLess = require('@zeit/next-less');
-
-module.exports = withCSS(withLess({
+module.exports = {
   exportPathMap: () => ({
     '/': { page: '/' },
     '/info': { page: '/info' },
@@ -17,8 +14,4 @@ module.exports = withCSS(withLess({
       },
     ]
   },
-  lessLoaderOptions: {
-    math: 'strict',
-    strictUnits: true,
-  },
-}));
+}

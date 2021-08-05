@@ -4,7 +4,6 @@ import { BasePage } from '../components/BasePage'
 import { BigHeader } from '../components/BigHeader'
 import { ExternalLink } from '../components/ExternalLink'
 import { Section } from '../components/Section'
-import '../styles/PageIndex.less'
 
 const headerMenu: ReadonlyArray<[string, string]> = Object.freeze([
   ['PageIndex-Profile', 'profile'],

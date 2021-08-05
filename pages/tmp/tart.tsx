@@ -1,6 +1,5 @@
 import classNames from 'classnames'
 import { ChangeEvent, FC, MouseEvent, useState } from 'react'
-import '../../styles/PageTmpTart.less'
 import { LinkButton } from '../../components/LinkButton'
 import { Page } from '../../components/Page'
 import { NoChild } from '../../lib/reactutil/NoChild'
@@ -60,11 +59,11 @@ const FluitView: FC<{ fluit: Fluit, level: number } & NoChild> = ({ fluit, level
         <EllipsisView s={fluit.s} />
       ) : (
         <>
-          <span className={classNames('FluitView-Paren', `_Level${level % 7}`)}>
+          <span className={classNames('PageTmpTart-FluitView-Paren', `_Level${level % 7}`)}>
             {fluit.o}
           </span>
           <FluitView fluit={fluit.f} level={level + 1} />
-          <span className={classNames('FluitView-Paren', `_Level${level % 7}`)}>
+          <span className={classNames('PageTmpTart-FluitView-Paren', `_Level${level % 7}`)}>
             {
               fluit.o.replace('(', ')').replace('{', '}').replace('[', ']')
                 .replace('【', '】').replace('❰', '❱')
@@ -95,25 +94,25 @@ const TartView: FC<{ tree: TartTree } & NoChild> = ({ tree }) => {
   const entries = forceMultiLine(tree.entries)
 
   return (
-    <div className='TartView'>
-      <details className='TartView-Details'>
-        <summary className='TartView-Summary'>
+    <div className='PageTmpTart-TartView'>
+      <details className='PageTmpTart-TartView-Details'>
+        <summary className='PageTmpTart-TartView-Summary'>
           {entries.flat(1).map((e) => fluitToString(e).substring(0, 20)).join(' // ')}
         </summary>
 
-        <details className='TartView-Details' open>
-          <summary className='TartView-Summary'>
+        <details className='PageTmpTart-TartView-Details' open>
+          <summary className='PageTmpTart-TartView-Summary'>
             info
           </summary>
           {entries.map((es, j) => (
             // eslint-disable-next-line react/no-array-index-key
-            <table className='TartView-Table' key={j}>
+            <table className='PageTmpTart-TartView-Table' key={j}>
               <tbody>
-                <tr className='TartView-Row'>
+                <tr className='PageTmpTart-TartView-Row'>
                   {es.map((e, i) => (
                     // eslint-disable-next-line react/no-array-index-key
-                    <td key={i} className='TartView-Entry'>
-                      <div className='TartView-EntryWrapper'>
+                    <td key={i} className='PageTmpTart-TartView-Entry'>
+                      <div className='PageTmpTart-TartView-EntryWrapper'>
                         <FluitView fluit={e} level={0} />
                       </div>
                     </td>
@@ -123,11 +122,11 @@ const TartView: FC<{ tree: TartTree } & NoChild> = ({ tree }) => {
             </table>
           ))}
           {tree.result !== '' && (
-            <table className='TartView-Table'>
+            <table className='PageTmpTart-TartView-Table'>
               <tbody>
-                <tr className='TartView-Row'>
-                  <td className='TartView-Result' colSpan={tree.entries.length}>
-                    <div className='TartView-ResultWrapper'>
+                <tr className='PageTmpTart-TartView-Row'>
+                  <td className='PageTmpTart-TartView-Result' colSpan={tree.entries.length}>
+                    <div className='PageTmpTart-TartView-ResultWrapper'>
                       <FluitView fluit={tree.result} level={0} />
                     </div>
                   </td>
@@ -164,7 +163,7 @@ const PageTmpTart: FC<NoChild> = () => {
   }
 
   return (
-    <Page canonical='/tmp/tart' title='Tart Viewer'>
+    <Page canonical='/tmp/tart' className='PageTmpTart-Page' title='Tart Viewer'>
       <input onChange={fileChange} onClick={fileClick} type='file' />
       <TartView tree={tree} />
     </Page>

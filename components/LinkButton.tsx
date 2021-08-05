@@ -1,6 +1,5 @@
 import classnames from 'classnames'
 import React from 'react'
-import '../styles/LinkButton.less'
 
 interface P {
   classNames?: Parameters<typeof classnames>[0]

@@ -4,7 +4,6 @@
 import classnames from 'classnames'
 import React from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import '../../styles/PageTmpMdLabel.less'
 import { Button } from '../../components/Button'
 import { LinkButton } from '../../components/LinkButton'
 import { Modal } from '../../components/Modal'

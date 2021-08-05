@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link as ScrollLink, animateScroll } from 'react-scroll'
 import { ScrollContext } from '../contexts/ScrollContext'
-import '../styles/BigHeader.less'
 import { namedMemo } from '../lib/namedComponent'
 import { BigHeaderAnime } from './BigHeaderAnime'
 import { LinkButton } from './LinkButton'
