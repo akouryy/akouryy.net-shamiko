@@ -3,7 +3,7 @@
 
 import classnames from 'classnames'
 import React from 'react'
-import uuidv4 from 'uuid/v4'
+import { v4 as uuidv4 } from 'uuid'
 import '../../styles/PageTmpMdLabel.less'
 import { Button } from '../../components/Button'
 import { LinkButton } from '../../components/LinkButton'
