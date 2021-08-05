@@ -8,8 +8,8 @@
   "scripts": {
     "l": "yarn run lint",
     "lint": "eslint . --ext .ts,.tsx",
-    "dev": "next",
-    "d": "next",
+    "dev": "next -p 8021",
+    "d": "next -p 8021",
     "build": "next build",
     "b": "next build",
     "export": "next export",
