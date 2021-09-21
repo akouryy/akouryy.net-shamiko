@@ -162,9 +162,16 @@ const PageTmpTart: FC<NoChild> = () => {
     }
   }
 
+  const expandClick = (): void => {
+    [...document.getElementsByTagName('details')].forEach((d) => { d.open = true })
+  }
+
   return (
     <Page canonical='/tmp/tart' className='PageTmpTart-Page' title='Tart Viewer'>
       <input onChange={fileChange} onClick={fileClick} type='file' />
+      <button onClick={expandClick} type='button'>
+        全て展開
+      </button>
       <TartView tree={tree} />
     </Page>
   )
