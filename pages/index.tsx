@@ -53,9 +53,13 @@ const PageIndex: React.FC<P> = () => {
                         第15回
                         <ExternalLink follow href='https://www.ioi-jp.org'>日本情報オリンピック</ExternalLink>
                         {' '}
-                        (2015-2016) 本選出場、春合宿参加
+                        (2015-2016) 本選出場、
+                        <em>春合宿参加</em>
                       </li>
-                      <li>第14回日本情報オリンピック (2014-2015) 本選出場、春合宿参加</li>
+                      <li>
+                        第14回日本情報オリンピック (2014-2015) 本選出場、
+                        <em>春合宿参加</em>
+                      </li>
                       <li>第13回日本情報オリンピック (2013-2014) 本選出場</li>
                     </ul>
                   </li>
@@ -64,8 +68,13 @@ const PageIndex: React.FC<P> = () => {
                     <ul>
                       <li>
                         <ExternalLink follow href='http://isucon.net'>ISUCON</ExternalLink>
-                        10 (2020) 本選6位
+                        11 (2021)
+                        {' '}
+                        <em>本選3位</em>
+                        {' '}
+                        (チーム FetchDecodeExecWrite)
                       </li>
+                      <li>ISUCON10 (2020) 本選6位</li>
                       <li>ISUCON9 (2019) 本選出場</li>
                       <li>ISUCON8 (2018) 本選出場</li>
                     </ul>
