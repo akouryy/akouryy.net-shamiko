@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { ChangeEvent, FC, MouseEvent, useState } from 'react'
+import React, { ChangeEvent, FC, MouseEvent, useCallback, useState } from 'react'
 import { LinkButton } from '../../components/LinkButton'
 import { Page } from '../../components/Page'
 import { NoChild } from '../../lib/reactutil/NoChild'
@@ -13,7 +13,7 @@ type Fluit =
 function stringFluitToHTML(str: string): { __html: string } {
   let html = str.replaceAll(/&/g, '&amp;').replaceAll(/</g, '&lt;').replaceAll(/>/g, '&gt;')
 
-  for (let i = 0; i < 10; ++i) {
+  for(let i = 0; i < 10; ++i) {
     html = html.replaceAll(String.fromCharCode('₀'.charCodeAt(0) + i), `<sub>${i}</sub>`)
   }
 
@@ -26,7 +26,7 @@ const EllipsisView: FC<{ s: string } & NoChild> = ({ s }) => {
   return (
     // eslint-disable-next-line max-len
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
-    <LinkButton classNames='PageTmpTart-EllipsisView' onClick={() => setVisible(!visible)}>
+    <LinkButton classNames='PageTmpTart-EllipsisView' onClick={useCallback(() => setVisible(!visible), [visible])}>
       {visible ? (
         s
       ) : (
@@ -37,10 +37,10 @@ const EllipsisView: FC<{ s: string } & NoChild> = ({ s }) => {
 }
 
 function fluitToString(fluit: Fluit): string {
-  if (typeof fluit === 'string') {
+  if(typeof fluit === 'string') {
     return fluit
   }
-  if (Array.isArray(fluit)) {
+  if(Array.isArray(fluit)) {
     return fluit.map(fluitToString).join('')
   }
   return '…'
@@ -111,7 +111,7 @@ const TartView: FC<{ tree: TartTree } & NoChild> = ({ tree }) => {
                 <tr className='PageTmpTart-TartView-Row'>
                   {es.map((e, i) => (
                     // eslint-disable-next-line react/no-array-index-key
-                    <td key={i} className='PageTmpTart-TartView-Entry'>
+                    <td className='PageTmpTart-TartView-Entry' key={i}>
                       <div className='PageTmpTart-TartView-EntryWrapper'>
                         <FluitView fluit={e} level={0} />
                       </div>
@@ -153,11 +153,12 @@ const PageTmpTart: FC<NoChild> = () => {
     reader.onload = () => {
       setTree(JSON.parse(reader.result as string) as TartTree)
     }
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     reader.readAsText(ev.target.files![0])
   }
 
   const fileClick = (ev: MouseEvent<HTMLInputElement>): void => {
-    if (ev.target instanceof HTMLInputElement) {
+    if(ev.target instanceof HTMLInputElement) {
       ev.target.value = ''
     }
   }

@@ -16,7 +16,7 @@ export const ScrollContext = React.createContext<ScrollProps>(null)
 ScrollContext.displayName = 'ScrollContext'
 
 export const calcScrollProps = (): ScrollProps => {
-  if (typeof document === 'undefined') {
+  if(typeof document === 'undefined') {
     return null
   }
 
@@ -54,7 +54,7 @@ export const withNonNullScrollProps = <P extends { scroll: NonNullScrollProps }>
   const NamedComponent = named(name, component)
   return named(`withNonNullScrollProps[${name}]`, (props) => {
     const scroll = React.useContext(ScrollContext)
-    if (scroll) {
+    if(scroll) {
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const allProps = { scroll, ...props } as P
       return (<NamedComponent {...allProps} />)

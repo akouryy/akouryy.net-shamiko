@@ -6,7 +6,7 @@ interface P {
 
 export const Modal: React.FC<P> = ({ children, hider }) => {
   const onKeyPress = (ev: React.KeyboardEvent<HTMLDivElement>): void => {
-    if (ev.key === 'Escape') {
+    if(ev.key === 'Escape') {
       hider(false)
     }
   }

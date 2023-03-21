@@ -1,7 +1,7 @@
 import Document, {
-  DocumentContext, DocumentInitialProps, Html, Head, Main, NextScript,
+  DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript,
 } from 'next/document'
-// import React from 'react'
+import React from 'react'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {

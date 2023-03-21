@@ -6,7 +6,7 @@ interface P {
   onClick: React.MouseEventHandler<HTMLButtonElement>
 }
 
-export const Button: React.FC<P> = React.memo(({ classNames, children, onClick }) => {
+export const Button: React.FC<P> = React.memo(function RawButton({ classNames, children, onClick }) {
   return (
     <button
       className={classnames(classNames, 'Button')}

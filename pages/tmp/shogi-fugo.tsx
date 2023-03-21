@@ -32,6 +32,7 @@ function convertNotations(input: string): string {
     return `${
         isSente ? '☗' : '☖'
       }${
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         same === '=' ? '同' : String.fromCodePoint('０'.codePointAt(0)! + +col) + '？一二三四五六七八九'[+row]
       }${
         PieceE2J[piece as keyof typeof PieceE2J]

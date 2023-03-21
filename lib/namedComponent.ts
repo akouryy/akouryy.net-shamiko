@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const named = <P extends unknown>(name: string, component: React.FC<P>): React.FC<P> => {
+export const named = <P>(name: string, component: React.FC<P>): React.FC<P> => {
   // eslint-disable-next-line no-param-reassign
   component.displayName = name
 

@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import Head from 'next/head'
 import React from 'react'
-import { useScrollProps, ScrollContext } from '../contexts/ScrollContext'
+import { ScrollContext, useScrollProps } from '../contexts/ScrollContext'
 
 interface P {
   canonical?: string
@@ -16,9 +16,9 @@ export const BasePage: React.FC<P> = ({ canonical, children, className, title })
     <ScrollContext.Provider value={scrollProps}>
       <div className={classNames('BasePage', className)}>
         <Head>
-          <title>{title ? `${title} - akouryy.net` : 'akouryy.net'}</title>
-          {canonical && (
-            <link rel='canonical' href={`https://akouryy.net${canonical}`} />
+          <title>{title != null ? `${title} - akouryy.net` : 'akouryy.net'}</title>
+          {canonical != null && (
+            <link href={`https://akouryy.net${canonical}`} rel='canonical' />
           )}
         </Head>
         {children}

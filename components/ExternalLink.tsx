@@ -12,7 +12,7 @@ export const ExternalLink: React.FC<P> = ({ children, follow, href }) => {
     // eslint-disable-next-line react/jsx-no-target-blank
     <a
       href={href}
-      rel={classnames('noopener noreferrer', !follow && 'nofollow')}
+      rel={classnames('noopener noreferrer', !(follow ?? false) && 'nofollow')}
       target='_blank'
     >
       {children}

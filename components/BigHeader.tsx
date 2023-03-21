@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link as ScrollLink, animateScroll } from 'react-scroll'
+import { animateScroll, Link as ScrollLink } from 'react-scroll'
 import { ScrollContext } from '../contexts/ScrollContext'
 import { namedMemo } from '../lib/namedComponent'
 import { BigHeaderAnime } from './BigHeaderAnime'
@@ -20,7 +20,7 @@ export const BigHeader: React.FC<P> = (props) => {
     const rootNightClass = 'Root-_Night'
 
     const cl = document.documentElement.classList
-    if (isNightDominant) {
+    if(isNightDominant) {
       cl.add(rootNightClass)
       cl.remove(rootDayClass)
     } else {
@@ -29,9 +29,11 @@ export const BigHeader: React.FC<P> = (props) => {
     }
   }, [isNightDominant])
 
-  if (scrollTop < winHeight - 48) {
+  if(scrollTop < winHeight - 48) {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return (<BigHeaderHero {...props} />)
   }
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   return (<BigHeaderFixed {...props} />)
 }
 

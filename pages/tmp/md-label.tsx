@@ -1,8 +1,9 @@
 /* eslint-disable no-alert */
 /* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import classnames from 'classnames'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { Button } from '../../components/Button'
 import { LinkButton } from '../../components/LinkButton'
@@ -95,27 +96,27 @@ const MdLineView: React.FC<{
       <div className='PageTmpMdLabel-MdLineView-Menu'>
         <LinkButton
           classNames='PageTmpMdLabel-MdLineView-Rot'
-          onClick={() => updateLine({ ...line, date: rotDate[line.date] })}
+          onClick={useCallback(() => updateLine({ ...line, date: rotDate[line.date] }), [line, updateLine])}
         >
           {dateHanzi[line.date]}
         </LinkButton>
         {' '}
         <LinkButton
           classNames='PageTmpMdLabel-MdLineView-Rot'
-          onClick={() => updateLine({ ...line, priority: rotPriority[line.priority] })}
+          onClick={useCallback(() => updateLine({ ...line, priority: rotPriority[line.priority] }), [line, updateLine])}
         >
           {priorityHanzi[line.priority]}
         </LinkButton>
         {' '}
         <LinkButton
           classNames='PageTmpMdLabel-MdLineView-Rot'
-          onClick={() => updateLine({ ...line, category: rotCategory[line.category] })}
+          onClick={useCallback(() => updateLine({ ...line, category: rotCategory[line.category] }), [line, updateLine])}
         >
           {categoryHanzi[line.category]}
         </LinkButton>
         <br />
-        <Button onClick={() => mergeTwoLines(line)}>併</Button>
-        <Button onClick={() => startEditLine(line)}>編</Button>
+        <Button onClick={useCallback(() => mergeTwoLines(line), [line, mergeTwoLines])}>併</Button>
+        <Button onClick={useCallback(() => startEditLine(line), [line, startEditLine])}>編</Button>
       </div>
       <div className='PageTmpMdLabel-MdLineView-Text'>
         {line.text}
@@ -134,13 +135,13 @@ const EditModal: React.FC<{
 
   React.useEffect(() => {
     setShown(!!line)
-    if (line) {
+    if(line) {
       setText(line.text)
     }
   }, [line])
 
-  const update = (): void => {
-    if (!line) { return }
+  const update = useCallback((): void => {
+    if(!line) { return }
 
     const ls = text.split('\n\n').map((t, i): MdLine => ({
       ...line,
@@ -151,12 +152,14 @@ const EditModal: React.FC<{
     replaceLines(line.id, ls)
 
     setShown(false)
-  }
+  }, [line, replaceLines, text])
 
-  if (!isShown) { return null }
+  const hider = useCallback(() => setShown(false), [])
+
+  if(!isShown) { return null }
 
   return (
-    <Modal hider={() => setShown(false)}>
+    <Modal hider={hider}>
       <p>2連続の改行を区切りとして分割されます</p>
 
       <textarea
@@ -203,40 +206,40 @@ const PageTmpMdLabel: React.FC<NoChild> = () => {
   const [editingLine, setEditingLine] = React.useState<MdLine | null>(null)
   const [lineFilter, setLineFilter] = React.useState<LineFilter>({})
 
-  const parseAndSetJSONLines = (str: string | null): boolean => {
+  const parseAndSetJSONLines = useCallback((str: string | null): boolean => {
     const ls = str && (JSON.parse(str) as MdLine[])
-    if (Array.isArray(ls) && ls.length >= 1 && ls[0].priority) {
+    if(Array.isArray(ls) && ls.length >= 1 && ls[0].priority) {
       setLines(ls)
       return true
     }
     return false
-  }
+  }, [])
 
   React.useEffect(() => {
     parseAndSetJSONLines(window.localStorage.getItem('PageTmpMdLabel.lines'))
-  }, [])
+  }, [parseAndSetJSONLines])
 
   React.useEffect(() => {
     window.localStorage.setItem('PageTmpMdLabel.lines', JSON.stringify(lines))
   }, [lines])
 
-  const mergeTwoLines = (firstLine: MdLine): void => {
+  const mergeTwoLines = useCallback((firstLine: MdLine): void => {
     const i = lines.findIndex((l) => l.id === firstLine.id)
 
-    if (i + 1 === lines.length) { return }
+    if(i + 1 === lines.length) { return }
     const line: MdLine = {
       ...lines[i],
       text: `${lines[i].text}\n${lines[i + 1].text}`,
     }
     setLines([...lines.slice(0, i), line, ...lines.slice(i + 2)])
-  }
+  }, [lines])
 
-  const replaceLines = (id: string, newLines: MdLine[]): void => {
+  const replaceLines = useCallback((id: string, newLines: MdLine[]): void => {
     const i = lines.findIndex((l) => l.id === id)
     setLines([...lines.slice(0, i), ...newLines, ...lines.slice(i + 1)])
-  }
+  }, [lines])
 
-  const updateLine = (line: MdLine): void => replaceLines(line.id, [line])
+  const updateLine = useCallback((line: MdLine): void => replaceLines(line.id, [line]), [replaceLines])
 
   const filteredLines = lines.filter((l) => (
     (!lineFilter.date || l.date === lineFilter.date) &&
@@ -244,18 +247,30 @@ const PageTmpMdLabel: React.FC<NoChild> = () => {
     (!lineFilter.category || l.category === lineFilter.category)
   ))
 
+  const markdownModalHider = useCallback(() => setShowMarkdownModal(false), [])
+  const markdownModalReplace =
+    useCallback(() => window.confirm('古いデータを消しますか?') && setLines(toLines(inputText)), [inputText, setLines])
+  const markdownModalAdd =
+    useCallback(() => setLines([...lines, ...toLines(inputText)]), [inputText, lines, setLines])
+  const jsonModalHider = useCallback(() => setShowJSONModal(false), [])
+  const jsonModalReplace = useCallback(() => {
+    if(window.confirm('古いデータを消しますか?') && parseAndSetJSONLines(inputJSONText)) {
+      setShowJSONModal(false)
+    }
+  }, [inputJSONText, parseAndSetJSONLines])
+
   return (
     <Page canonical='/tmp/md-label' title='Markdown Labeler'>
       <Section title='Markdown Labeler (仮)'>
         <p>ISUCON9本選前日に作った</p>
 
-        <Button onClick={() => setShowMarkdownModal(true)}>Markdown入力</Button>
-        <Button onClick={() => { setShowJSONModal(true); setInputJSONText(JSON.stringify(lines)) }}>
+        <Button onClick={useCallback(() => setShowMarkdownModal(true), [])}>Markdown入力</Button>
+        <Button onClick={useCallback(() => { setShowJSONModal(true); setInputJSONText(JSON.stringify(lines)) }, [lines])}>
           Im/Export as JSON
         </Button>
 
         {showMarkdownModal && (
-          <Modal hider={() => setShowMarkdownModal(false)}>
+          <Modal hider={markdownModalHider}>
             <p>Markdownを入力してください</p>
             <textarea
               cols={100}
@@ -263,15 +278,13 @@ const PageTmpMdLabel: React.FC<NoChild> = () => {
               rows={30}
               value={inputText}
             />
-            <Button onClick={() => window.confirm('古いデータを消しますか?') && setLines(toLines(inputText))}>
-              置換
-            </Button>
-            <Button onClick={() => setLines([...lines, ...toLines(inputText)])}>追加</Button>
+            <Button onClick={markdownModalReplace}>置換</Button>
+            <Button onClick={markdownModalAdd}>追加</Button>
           </Modal>
         )}
 
         {showJSONModal && (
-          <Modal hider={() => setShowJSONModal(false)}>
+          <Modal hider={jsonModalHider}>
             <p>Markdownとラベルの情報を保持するJSONを入力してください</p>
             <textarea
               cols={100}
@@ -279,23 +292,14 @@ const PageTmpMdLabel: React.FC<NoChild> = () => {
               rows={30}
               value={inputJSONText}
             />
-            <Button onClick={() => {
-              if (window.confirm('古いデータを消しますか?')) {
-                if (parseAndSetJSONLines(inputJSONText)) {
-                  window.alert('ok')
-                }
-              }
-            }}
-            >
-              置換
-            </Button>
+            <Button onClick={jsonModalReplace}>置換</Button>
           </Modal>
         )}
 
         <br />
 
         <FilterSelect
-          onUpdate={(v) => setLineFilter({ ...lineFilter, date: isDateLabel(v) && v })}
+          onUpdate={useCallback((v) => setLineFilter({ ...lineFilter, date: isDateLabel(v) && v }), [lineFilter])}
           options={[
             ['all', '全時間帯'],
             ['morning', '朝'],
@@ -308,7 +312,7 @@ const PageTmpMdLabel: React.FC<NoChild> = () => {
         />
 
         <FilterSelect
-          onUpdate={(v) => setLineFilter({ ...lineFilter, priority: isPriorityLabel(v) && v })}
+          onUpdate={useCallback((v) => setLineFilter({ ...lineFilter, priority: isPriorityLabel(v) && v }), [lineFilter])}
           options={[
             ['low', '全重要度'],
             ['middle', '「中」以上'],
@@ -320,7 +324,7 @@ const PageTmpMdLabel: React.FC<NoChild> = () => {
         />
 
         <FilterSelect
-          onUpdate={(v) => setLineFilter({ ...lineFilter, category: isCategoryLabel(v) && v })}
+          onUpdate={useCallback((v) => setLineFilter({ ...lineFilter, category: isCategoryLabel(v) && v }), [lineFilter])}
           options={[
             ['all', '全カテゴリ'],
             ['prog', 'プログラム(理)'],
