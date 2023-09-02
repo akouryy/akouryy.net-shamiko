@@ -29,11 +29,12 @@ $z-index-modal: 10009
 $z-index-big-header-hero-fg: 1101
 $z-index-big-header-hero-bg: 1001
 
-$color-day-bg-raw: #edeaf2
+$color-day-bg-raw: #fdf6f2
 $color-day-bg: lighten($color-day-bg-raw, 1%)
 $color-day-bg-pale: darken($color-day-bg-raw, 10%)
 
 $color-day-fg: #08040c
+$color-day-fg-hero: #ff9900
 $color-day-fg-link: mix($color-day-fg, #0000ff, 20%)
 
 @mixin day()
@@ -44,11 +45,11 @@ $color-day-fg-link: mix($color-day-fg, #0000ff, 20%)
   a, .LinkButton
     color: $color-day-fg-link
 
-$color-night-bg: #040206
-$color-night-bg-pale: lighten($color-night-bg, 10%)
+$color-night-bg: $color-day-bg // #040206
+$color-night-bg-pale: $color-day-bg-pale // lighten($color-night-bg, 10%)
 
-$color-night-fg: #dddafe
-$color-night-fg-link: mix($color-night-fg, #0000ff, 80%)
+$color-night-fg: $color-day-fg // #dddafe
+$color-night-fg-link: $color-day-fg-link // mix($color-night-fg, #0000ff, 80%)
 
 @mixin night()
   background: $color-night-bg
@@ -113,7 +114,7 @@ em
 .BigHeader
   &Anime
     animation: BigHeaderAnimeBG 5s linear infinite
-    background: linear-gradient(to right, $color-night-bg, $color-night-bg 20%, #0a081a 30%, #080616 40%, #080616 60%, $color-night-bg 80%, $color-night-bg)
+    background: $color-night-bg // linear-gradient(to right, $color-night-bg, $color-night-bg 20%, #0a081a 30%, #080616 40%, #080616 60%, $color-night-bg 80%, $color-night-bg)
     background-size: 500vw 100vh
     height: 100%
     position: relative
@@ -132,6 +133,7 @@ em
   &Fixed
     @include center-flex
     @include night
+    color: $color-day-fg-hero
     height: 3rem
     left: 0
     position: fixed
@@ -148,6 +150,7 @@ em
 
   :root body &Hero
     @include night
+    color: $color-day-fg-hero
     height: 100vh
 
     &-ForeGround
@@ -202,7 +205,7 @@ em
   padding: 0!important
 
 .Main
-  background: rgba(#fff, 20%)
+  background: rgba(#fff, 75%)
   padding: 0 1rem
   margin: 0 1rem
   max-width: 60rem
@@ -244,7 +247,7 @@ em
   @include day
 
   &-Main
-    background: rgba(#fff, 20%)
+    background: rgba(#fff, 75%)
     min-height: 100vh
     padding: 0 1rem
     margin: 0 1rem

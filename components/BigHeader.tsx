@@ -2,7 +2,6 @@ import React from 'react'
 import { animateScroll, Link as ScrollLink } from 'react-scroll'
 import { ScrollContext } from '../contexts/ScrollContext'
 import { namedMemo } from '../lib/namedComponent'
-import { BigHeaderAnime } from './BigHeaderAnime'
 import { LinkButton } from './LinkButton'
 
 interface P {
@@ -53,7 +52,7 @@ const BigHeaderHero = namedMemo<P>('BigHeaderHero', ({ menu }) => {
         </ul>
       </div>
 
-      <BigHeaderAnime />
+      {/* <BigHeaderAnime /> */}
     </header>
   )
 })

@@ -27,13 +27,12 @@ const PageIndex: React.FC<P> = () => {
           <main className='PageIndex-Main'>
             <Section id='PageIndex-Profile' title='自己紹介'>
               <p>@akouryy</p>
-              <p>東京大学大学院情報理工学系研究科コンピュータ科学専攻 在学中</p>
             </Section>
             <Section id='PageIndex-Programming' title='プログラミング'>
               <Section title=''>
                 プログラミングが好きです
                 <br />
-                よく使う言語: Scala, TypeScript, Ruby, C++
+                よく使う言語: Ruby, Scala, TypeScript, Rust
               </Section>
               <Section title='実績'>
                 <ul>
