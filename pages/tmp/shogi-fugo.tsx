@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Page } from '../../components/Page'
 import { Section } from '../../components/Section'
-import { NoChild } from '../../lib/reactutil/NoChild'
 
 const PieceE2J = {
   p: '歩',
@@ -44,7 +43,7 @@ function convertNotations(input: string): string {
   })
 }
 
-const PageTmpShogiFugo: React.FC<NoChild> = () => {
+const PageTmpShogiFugo: React.FC<Record<string, never>> = () => {
   const [input, setInput] = useState('')
   const output = convertNotations(input)
 

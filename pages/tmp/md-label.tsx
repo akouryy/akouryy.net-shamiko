@@ -10,7 +10,6 @@ import { LinkButton } from '../../components/LinkButton'
 import { Modal } from '../../components/Modal'
 import { Page } from '../../components/Page'
 import { Section } from '../../components/Section'
-import { NoChild } from '../../lib/reactutil/NoChild'
 import { identity } from '../../lib/util'
 
 type DateLabel = 'morning' | 'noon' | 'night' | 'post'
@@ -84,7 +83,7 @@ const MdLineView: React.FC<{
   mergeTwoLines: (line: MdLine) => void
   startEditLine: (line: MdLine) => void
   updateLine: (line: MdLine) => void
-} & NoChild> = ({ line, mergeTwoLines, startEditLine, updateLine }) => {
+}> = ({ line, mergeTwoLines, startEditLine, updateLine }) => {
   return (
     <div className={classnames(
       'PageTmpMdLabel-MdLineView',
@@ -129,7 +128,7 @@ const MdLineView: React.FC<{
 const EditModal: React.FC<{
   line: MdLine | null
   replaceLines: (oldID: string, ls: MdLine[]) => void
-} & NoChild> = ({ line, replaceLines }) => {
+}> = ({ line, replaceLines }) => {
   const [isShown, setShown] = React.useState(false)
   const [text, setText] = React.useState('')
 
@@ -179,7 +178,7 @@ const FilterSelect: React.FC<{
   onUpdate: (v: string) => void
   options: Array<[string, string]>
   value: string
-} & NoChild> = ({ onUpdate, options, value }) => {
+}> = ({ onUpdate, options, value }) => {
   return (
     <select onChange={(ev) => onUpdate(ev.target.value)} value={value}>
       {options.map(([v, d]) => (
@@ -191,7 +190,7 @@ const FilterSelect: React.FC<{
 
 /// /////////////////////////////////////////////////////////////////////////////
 
-const PageTmpMdLabel: React.FC<NoChild> = () => {
+const PageTmpMdLabel: React.FC<Record<string, never>> = () => {
   React.useEffect(() => {
     window.addEventListener('beforeunload', (ev) => {
       ev.returnValue = '変更は保存されません'

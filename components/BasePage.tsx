@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import Head from 'next/head'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { ScrollContext, useScrollProps } from '../contexts/ScrollContext'
 
 interface P {
@@ -9,7 +9,7 @@ interface P {
   title?: string
 }
 
-export const BasePage: React.FC<P> = ({ canonical, children, className, title }) => {
+export const BasePage: React.FC<PropsWithChildren<P>> = ({ canonical, children, className, title }) => {
   const scrollProps = useScrollProps()
 
   return (

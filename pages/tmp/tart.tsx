@@ -2,7 +2,6 @@ import classNames from 'classnames'
 import React, { ChangeEvent, FC, MouseEvent, useCallback, useState } from 'react'
 import { LinkButton } from '../../components/LinkButton'
 import { Page } from '../../components/Page'
-import { NoChild } from '../../lib/reactutil/NoChild'
 
 const ELLIPSIS = 1 as const
 const PAREN = 2 as const
@@ -20,7 +19,7 @@ function stringFluitToHTML(str: string): { __html: string } {
   return { __html: html }
 }
 
-const EllipsisView: FC<{ s: string } & NoChild> = ({ s }) => {
+const EllipsisView: FC<{ s: string }> = ({ s }) => {
   const [visible, setVisible] = useState(false)
 
   return (
@@ -46,7 +45,7 @@ function fluitToString(fluit: Fluit): string {
   return '…'
 }
 
-const FluitView: FC<{ fluit: Fluit, level: number } & NoChild> = ({ fluit, level }) => {
+const FluitView: FC<{ fluit: Fluit, level: number }> = ({ fluit, level }) => {
   return (
     <span>
       {typeof fluit === 'string' ? (
@@ -90,7 +89,7 @@ function forceMultiLine(entries: Fluit[] | Fluit[][]): Fluit[][] {
   return isSingleLine(entries) ? [entries] : entries
 }
 
-const TartView: FC<{ tree: TartTree } & NoChild> = ({ tree }) => {
+const TartView: FC<{ tree: TartTree }> = ({ tree }) => {
   const entries = forceMultiLine(tree.entries)
 
   return (
@@ -145,7 +144,7 @@ const TartView: FC<{ tree: TartTree } & NoChild> = ({ tree }) => {
   )
 }
 
-const PageTmpTart: FC<NoChild> = () => {
+const PageTmpTart: FC<Record<string, never>> = () => {
   const [tree, setTree] = useState<TartTree>({ entries: [], result: '', children: [] })
 
   const fileChange = (ev: ChangeEvent<HTMLInputElement>): void => {

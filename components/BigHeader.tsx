@@ -7,7 +7,6 @@ import { LinkButton } from './LinkButton'
 
 interface P {
   menu: ReadonlyArray<[string, string]>
-  children?: never
 }
 
 export const BigHeader: React.FC<P> = (props) => {

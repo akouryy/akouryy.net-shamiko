@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { BasePage } from './BasePage'
 import { HeaderFixed } from './HeaderFixed'
 import { Main } from './Main'
@@ -10,7 +10,7 @@ interface P {
   title?: string
 }
 
-export const Page: React.FC<P> = ({ canonical, children, className, title }) => {
+export const Page: React.FC<PropsWithChildren<P>> = ({ canonical, children, className, title }) => {
   React.useEffect(() => {
     const cl = document.documentElement.classList
     cl.add('Root-_Day')

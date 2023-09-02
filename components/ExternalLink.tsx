@@ -1,12 +1,12 @@
 import classnames from 'classnames'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 
 interface P {
   follow?: boolean
   href: string
 }
 
-export const ExternalLink: React.FC<P> = ({ children, follow, href }) => {
+export const ExternalLink: React.FC<PropsWithChildren<P>> = ({ children, follow, href }) => {
   return (
     // (false positive)
     // eslint-disable-next-line react/jsx-no-target-blank

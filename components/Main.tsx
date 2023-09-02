@@ -1,11 +1,9 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface P {
-  // children?: never;
-}
+interface P {}
 
-export const Main: React.FC<P> = ({ children }) => {
+export const Main: React.FC<PropsWithChildren<P>> = ({ children }) => {
   return (
     <div className='Main-Container'>
       <main className='Main'>
