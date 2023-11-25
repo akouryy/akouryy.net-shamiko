@@ -30,16 +30,14 @@ const PageIndex: React.FC<P> = () => {
             </Section>
             <Section id='PageIndex-Programming' title='プログラミング'>
               <Section title=''>
-                プログラミングが好きです
-                <br />
-                よく使う言語: Ruby, Scala, TypeScript, Rust
+                よく使う言語: Ruby, TypeScript, Scala, Rust
               </Section>
               <Section title='実績'>
                 <ul>
                   <li>
                     競技プログラミング
                     <ul>
-                      <li>
+                      {/* <li>
                         <ExternalLink follow href='https://codingcompetitions.withgoogle.com/codejam'>
                           Google Code Jam
                         </ExternalLink>
@@ -47,7 +45,7 @@ const PageIndex: React.FC<P> = () => {
                         2021 Round3 進出
                       </li>
                       <li>Google Code Jam 2020 Round3 進出</li>
-                      <li>Google Code Jam 2019 Round3 進出</li>
+                      <li>Google Code Jam 2019 Round3 進出</li> */}
                       <li>
                         第15回
                         <ExternalLink follow href='https://www.ioi-jp.org'>日本情報オリンピック</ExternalLink>
@@ -67,15 +65,14 @@ const PageIndex: React.FC<P> = () => {
                     <ul>
                       <li>
                         <ExternalLink follow href='http://isucon.net'>ISUCON</ExternalLink>
-                        11 (2021)
-                        {' '}
-                        <em>本選3位</em>
-                        {' '}
-                        (チーム FetchDecodeExecWrite)
+                        13 5位{' '}
+                        <small>チーム FetchDecodeExecWrite</small>
                       </li>
-                      <li>ISUCON10 (2020) 本選6位</li>
-                      <li>ISUCON9 (2019) 本選出場</li>
-                      <li>ISUCON8 (2018) 本選出場</li>
+                      <li>ISUCON12 本選5位 (学生3位)</li>
+                      <li>ISUCON11 <em>本選3位</em></li>
+                      <li>ISUCON10 本選6位</li>
+                      <li>ISUCON9 本選出場</li>
+                      <li>ISUCON8 本選出場</li>
                     </ul>
                   </li>
                 </ul>
@@ -85,11 +82,7 @@ const PageIndex: React.FC<P> = () => {
               <Section title='サイト'>
                 <ul className='BasePage-NormalList'>
                   <li>
-                    akouryy.net:
-                    <ul>
-                      <li><Link href='/'>トップページ</Link></li>
-                      <li><Link href='/info'>このサイトについて</Link></li>
-                    </ul>
+                    <Link href='/'>akouryy.net</Link>
                   </li>
                   <li>
                     <a href='https://akouryy.hatenablog.jp'>
@@ -99,7 +92,7 @@ const PageIndex: React.FC<P> = () => {
                   </li>
                 </ul>
               </Section>
-              <Section title='各種アカウント'>
+              <Section title='アカウント'>
                 <ul className='BasePage-NormalList'>
                   <li>
                     GitHub:
