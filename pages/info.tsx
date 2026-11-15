@@ -42,11 +42,6 @@ const PageInfo: React.FC<P> = () => {
           <p>
             その他の使用技術:
             {' '}
-            <ExternalLink href='http://lesscss.org'>
-              Less
-            </ExternalLink>
-            ,
-            {' '}
             <ExternalLink href='https://eslint.org'>
               ESLint
             </ExternalLink>
