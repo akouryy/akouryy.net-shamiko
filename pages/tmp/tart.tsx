@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { ChangeEvent, FC, MouseEvent, useCallback, useState } from 'react'
+import { ChangeEvent, FC, MouseEvent, useCallback, useState } from 'react'
 import { LinkButton } from '../../components/LinkButton'
 import { Page } from '../../components/Page'
 

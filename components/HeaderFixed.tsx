@@ -10,10 +10,8 @@ export const HeaderFixed: React.FC<P> = () => {
     <>
       <header className='HeaderFixed'>
         <h1 className='HeaderFixed-Title'>
-          <Link href='/'>
-            <a className='HeaderFixed-TitleLink'>
-              akouryy.net
-            </a>
+          <Link className='HeaderFixed-TitleLink' href='/'>
+            akouryy.net
           </Link>
         </h1>
       </header>

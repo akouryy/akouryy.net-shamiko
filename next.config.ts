@@ -1,9 +1,6 @@
-module.exports = {
-  exportPathMap: () => ({
-    '/': { page: '/' },
-    '/info': { page: '/info' },
-    '/tmp/md-label': { page: '/tmp/md-label' },
-  }),
+import type { NextConfig } from 'next'
+
+const nextConfig: NextConfig = {
   async headers() {
     return [
       {
@@ -15,3 +12,5 @@ module.exports = {
     ]
   },
 }
+
+export default nextConfig

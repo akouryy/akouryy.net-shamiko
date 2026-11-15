@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from 'react'
 
 interface P {
   id?: string
-  title: string | JSX.Element
+  title: string | React.JSX.Element
 }
 
 export const Section: React.FC<PropsWithChildren<P>> = ({ children, id, title }) => {
