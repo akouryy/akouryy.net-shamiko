@@ -1,3 +1,6 @@
+@use 'sass:color'
+@use 'sass:string'
+
 @keyframes BigHeaderAnimeBG
   0%
     background-position: 0vw 0vh
@@ -30,12 +33,12 @@ $z-index-big-header-hero-fg: 1101
 $z-index-big-header-hero-bg: 1001
 
 $color-day-bg-raw: #fdf6f2
-$color-day-bg: lighten($color-day-bg-raw, 1%)
-$color-day-bg-pale: darken($color-day-bg-raw, 10%)
+$color-day-bg: color.adjust($color-day-bg-raw, $lightness: 1%)
+$color-day-bg-pale: color.adjust($color-day-bg-raw, $lightness: -10%)
 
 $color-day-fg: #08040c
 $color-day-fg-hero: #ff9900
-$color-day-fg-link: mix($color-day-fg, #0000ff, 20%)
+$color-day-fg-link: color.mix($color-day-fg, #0000ff, 20%)
 
 @mixin day()
   background: $color-day-bg
@@ -99,7 +102,7 @@ em
   font-weight: bold
 
 small
-  color: mix($color-night-fg, white, 40%)
+  color: color.mix($color-night-fg, white, 40%)
 
 .BasePage
   &-NormalList
@@ -130,7 +133,7 @@ small
       fill: #00000000
       stroke: $stroke
       &:hover
-        stroke: lighten($stroke, 10%)
+        stroke: color.adjust($stroke, $lightness: 10%)
         transition: stroke .5s ease
 
   &Fixed
@@ -191,7 +194,7 @@ small
 
   &-Title
     @include direct-box
-    color: mix($color-night-fg, white)
+    color: color.mix($color-night-fg, white)
     font-size: 2rem
 
   &-TitleLink
@@ -238,7 +241,7 @@ small
     left: 0
     position: fixed
     top: 0
-    z-index: z-index-modal
+    z-index: $z-index-modal
 
     .Root-_Day &
       background: rgba($color-night-bg, 0.3)
@@ -297,7 +300,7 @@ small
           $grad-step13: "#0000"
 
           &-_category_#{$cat}#{&}-_date_#{$date}
-            background-image: unquote("linear-gradient(to right, " + $grad-step00 + $grad-step01 + $grad-step02 + $grad-step03 + $grad-step04 + $grad-step05 + $grad-step06 + $grad-step07 + $grad-step08 + $grad-step09 + $grad-step10 + $grad-step11 + $grad-step12 + $grad-step13 + ")")
+            background-image: string.unquote("linear-gradient(to right, " + $grad-step00 + $grad-step01 + $grad-step02 + $grad-step03 + $grad-step04 + $grad-step05 + $grad-step06 + $grad-step07 + $grad-step08 + $grad-step09 + $grad-step10 + $grad-step11 + $grad-step12 + $grad-step13 + ")")
 
       &-_priority_precious
         background-color: #fcc
