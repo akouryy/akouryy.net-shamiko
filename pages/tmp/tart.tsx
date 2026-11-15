@@ -1,5 +1,6 @@
 import classNames from 'classnames'
-import { ChangeEvent, FC, MouseEvent, useCallback, useState } from 'react'
+import { type ChangeEvent, type FC, type MouseEvent, useCallback, useState } from 'react'
+import { z } from 'zod'
 import { LinkButton } from '../../components/LinkButton'
 import { Page } from '../../components/Page'
 
@@ -43,38 +44,51 @@ function fluitToString(fluit: Fluit): string {
   return '…'
 }
 
-const FluitView: FC<{ fluit: Fluit, level: number }> = ({ fluit, level }) => {
-  return (
-    <span>
-      {typeof fluit === 'string' ? (
-        <span dangerouslySetInnerHTML={stringFluitToHTML(fluit)} />
-      ) : Array.isArray(fluit) ? fluit.map((f, i) => (
-        <FluitView fluit={f} key={i} level={level} />
-      )) : fluit.t === ELLIPSIS ? (
-        <EllipsisView s={fluit.s} />
-      ) : (
-        <>
-          <span className={classNames('PageTmpTart-FluitView-Paren', `_Level${level % 7}`)}>
-            {fluit.o}
-          </span>
-          <FluitView fluit={fluit.f} level={level + 1} />
-          <span className={classNames('PageTmpTart-FluitView-Paren', `_Level${level % 7}`)}>
-            {
-              fluit.o.replace('(', ')').replace('{', '}').replace('[', ']')
-                .replace('【', '】').replace('❰', '❱')
-            }
-          </span>
-        </>
-      )}
-    </span>
-  )
-}
+const FluitView: FC<{ fluit: Fluit, level: number }> = ({ fluit, level }) => (
+  <span>
+    {typeof fluit === 'string' ? (
+      <span dangerouslySetInnerHTML={stringFluitToHTML(fluit)} />
+    ) : Array.isArray(fluit) ? fluit.map((f, i) => (
+      <FluitView fluit={f} key={i} level={level} />
+    )) : fluit.t === ELLIPSIS ? (
+      <EllipsisView s={fluit.s} />
+    ) : (
+      <>
+        <span className={classNames('PageTmpTart-FluitView-Paren', `_Level${level % 7}`)}>
+          {fluit.o}
+        </span>
+        <FluitView fluit={fluit.f} level={level + 1} />
+        <span className={classNames('PageTmpTart-FluitView-Paren', `_Level${level % 7}`)}>
+          {
+            fluit.o.replace('(', ')').replace('{', '}').replace('[', ']')
+              .replace('【', '】').replace('❰', '❱')
+          }
+        </span>
+      </>
+    )}
+  </span>
+)
 
 interface TartTree {
   entries: Fluit[] | Fluit[][]
   result: Fluit
   children: TartTree[]
 }
+
+// 再帰型は z.infer で導出できないため、既存の型に注釈で合わせる
+const FluitSchema: z.ZodType<Fluit> = z.lazy(() => z.union([
+  z.string(),
+  z.array(FluitSchema),
+  z.object({ t: z.literal(ELLIPSIS), s: z.string() }),
+  z.object({ t: z.literal(PAREN), o: z.string(), f: FluitSchema }),
+]))
+
+// 描画側は forceMultiLine で entries を常に Fluit[][] として扱うため、単一行形式は受け付けない
+const TartTreeSchema: z.ZodType<TartTree> = z.lazy(() => z.object({
+  entries: z.array(z.array(FluitSchema)),
+  result: FluitSchema,
+  children: z.array(TartTreeSchema),
+}))
 
 function isSingleLine(entries: Fluit[] | Fluit[][]): entries is Fluit[] {
   // TODO: 配列はFluit内でも利用される
@@ -143,7 +157,11 @@ const PageTmpTart: FC<Record<string, never>> = () => {
   const fileChange = (ev: ChangeEvent<HTMLInputElement>): void => {
     const reader = new FileReader()
     reader.onload = () => {
-      setTree(JSON.parse(reader.result as string) as TartTree)
+      if(typeof reader.result !== 'string') { return }
+      const parseResult = TartTreeSchema.safeParse(JSON.parse(reader.result))
+      if(parseResult.success) {
+        setTree(parseResult.data)
+      }
     }
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     reader.readAsText(ev.target.files![0])

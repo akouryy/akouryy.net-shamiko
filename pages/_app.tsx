@@ -1,4 +1,4 @@
-import { AppProps } from 'next/app'
+import type { AppProps } from 'next/app'
 import 'normalize.css'
 import type { JSX } from 'react'
 import '../styles/all.sass'

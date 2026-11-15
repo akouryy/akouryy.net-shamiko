@@ -15,6 +15,7 @@ export default defineConfig([
     rules: {
       '@eslint-community/eslint-comments/require-description': 'off',
       '@typescript-eslint/no-magic-numbers': 'off',
+      '@typescript-eslint/prefer-destructuring': 'off',
       // import 文どうしの並び順は検査せず、同一 import 内の名前の並びだけを揃える
       'sort-imports': ['error', { ignoreCase: true, ignoreDeclarationSort: true }],
     },

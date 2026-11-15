@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-import React, { PropsWithChildren } from 'react'
+import React, { type PropsWithChildren } from 'react'
 
 interface P {
   classNames?: Parameters<typeof classnames>[0]

@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { PropsWithChildren } from 'react'
+import React, { type PropsWithChildren } from 'react'
 import { BasePage } from './BasePage'
 import { HeaderFixed } from './HeaderFixed'
 import { Main } from './Main'

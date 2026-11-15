@@ -63,58 +63,56 @@ type SquircleProps = Squircle & {
 
 const BigHeaderAnimeSquircle: React.FC<SquircleProps> = namedMemo('BigHeaderAnimeSquircle', ({
   x: x0, y, size, rotateDuration, speed, isClockwise, docWidth,
-}) => {
-  return (
-    <>
-      {[-1, 0, 1].map((d) => {
-        const x = x0 + docWidth * d
-        const s = size / 2
-        return (
-          <path
-            className='BigHeaderAnimeSquircle'
-            d={`
-              M ${x - s},${y}
-              c 0,${s} 0,${s} ${s},${s}
-              s ${s},0 ${s},-${s}
-              s 0,-${s} -${s},-${s}
-              s -${s},0 -${s},${s} Z
-            `}
-            key={d}
-            strokeWidth={3}
-            transform-origin={`${x} ${y}`}
-          >
-            <animateTransform
-              additive='sum'
-              attributeName='transform'
-              begin={-100}
-              dur={speed}
-              from={`${docWidth * 0.5}, 0`}
-              repeatCount='indefinite'
-              to={`${docWidth * -0.5}, 0`}
-              type='translate'
-            />
-            <animateTransform
-              additive='sum'
-              attributeName='transform'
-              begin={-100}
-              dur={rotateDuration}
-              from='0 0 0'
-              repeatCount='indefinite'
-              to={`${isClockwise ? 360 : -360} 0 0`}
-              type='rotate'
-            />
-            <animateTransform
-              additive='sum'
-              attributeName='transform'
-              begin='mouseup'
-              dur={0.3}
-              from='0 0 0'
-              to={`${isClockwise ? 270 : -270} 0 0`}
-              type='rotate'
-            />
-          </path>
-        )
-      })}
-    </>
-  )
-})
+}) => (
+  <>
+    {[-1, 0, 1].map((d) => {
+      const x = x0 + docWidth * d
+      const s = size / 2
+      return (
+        <path
+          className='BigHeaderAnimeSquircle'
+          d={`
+            M ${x - s},${y}
+            c 0,${s} 0,${s} ${s},${s}
+            s ${s},0 ${s},-${s}
+            s 0,-${s} -${s},-${s}
+            s -${s},0 -${s},${s} Z
+          `}
+          key={d}
+          strokeWidth={3}
+          transform-origin={`${x} ${y}`}
+        >
+          <animateTransform
+            additive='sum'
+            attributeName='transform'
+            begin={-100}
+            dur={speed}
+            from={`${docWidth * 0.5}, 0`}
+            repeatCount='indefinite'
+            to={`${docWidth * -0.5}, 0`}
+            type='translate'
+          />
+          <animateTransform
+            additive='sum'
+            attributeName='transform'
+            begin={-100}
+            dur={rotateDuration}
+            from='0 0 0'
+            repeatCount='indefinite'
+            to={`${isClockwise ? 360 : -360} 0 0`}
+            type='rotate'
+          />
+          <animateTransform
+            additive='sum'
+            attributeName='transform'
+            begin='mouseup'
+            dur={0.3}
+            from='0 0 0'
+            to={`${isClockwise ? 270 : -270} 0 0`}
+            type='rotate'
+          />
+        </path>
+      )
+    })}
+  </>
+))

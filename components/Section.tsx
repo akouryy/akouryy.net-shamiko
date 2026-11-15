@@ -1,15 +1,13 @@
-import React, { PropsWithChildren } from 'react'
+import React, { type PropsWithChildren } from 'react'
 
 interface P {
   id?: string
   title: string | React.JSX.Element
 }
 
-export const Section: React.FC<PropsWithChildren<P>> = ({ children, id, title }) => {
-  return (
-    <section className='Section' id={id}>
-      <h1 className='Section-Title'>{title}</h1>
-      {children}
-    </section>
-  )
-}
+export const Section: React.FC<PropsWithChildren<P>> = ({ children, id, title }) => (
+  <section className='Section' id={id}>
+    <h1 className='Section-Title'>{title}</h1>
+    {children}
+  </section>
+)

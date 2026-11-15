@@ -4,6 +4,7 @@
 import classnames from 'classnames'
 import React, { useCallback } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { z } from 'zod'
 import { Button } from '../../components/Button'
 import { LinkButton } from '../../components/LinkButton'
 import { Modal } from '../../components/Modal'
@@ -50,25 +51,27 @@ const rotCategory: Record<CategoryLabel, CategoryLabel> =
 const categoryHanzi: Record<CategoryLabel, string> =
   { prog: '理', infra: '盤' }
 
-interface MdLine {
-  id: string
-  text: string
-  date: DateLabel
-  priority: PriorityLabel
-  category: CategoryLabel
-}
+const MdLineSchema = z.object({
+  id: z.string(),
+  text: z.string(),
+  date: z.enum(dateLabels),
+  priority: z.enum(priorityLabels),
+  category: z.enum(categoryLabels),
+})
 
-const toLines = (str: string): MdLine[] => {
-  return str.split('\n')
-    .filter((l) => l.length > 0)
-    .map((l): MdLine => ({
-      id: uuidv4(),
-      text: l,
-      date: 'post',
-      priority: 'low',
-      category: 'prog',
-    }))
-}
+type MdLine = z.infer<typeof MdLineSchema>
+
+const MdLinesSchema = z.array(MdLineSchema).min(1)
+
+const toLines = (str: string): MdLine[] => str.split('\n')
+  .filter((l) => l.length > 0)
+  .map((l): MdLine => ({
+    id: uuidv4(),
+    text: l,
+    date: 'post',
+    priority: 'low',
+    category: 'prog',
+  }))
 
 interface LineFilter {
   date?: DateLabel | false
@@ -82,65 +85,55 @@ const MdLineView: React.FC<{
   mergeTwoLines: (line: MdLine) => void
   startEditLine: (line: MdLine) => void
   updateLine: (line: MdLine) => void
-}> = ({ line, mergeTwoLines, startEditLine, updateLine }) => {
-  return (
-    <div className={classnames(
-      'PageTmpMdLabel-MdLineView',
-      `PageTmpMdLabel-MdLineView-_date_${line.date}`,
-      `PageTmpMdLabel-MdLineView-_priority_${line.priority}`,
-      `PageTmpMdLabel-MdLineView-_category_${line.category}`,
-    )}
-    >
-      <div className='PageTmpMdLabel-MdLineView-Menu'>
-        <LinkButton
-          classNames='PageTmpMdLabel-MdLineView-Rot'
-          onClick={useCallback(() => { updateLine({ ...line, date: rotDate[line.date] }) }, [line, updateLine])}
-        >
-          {dateHanzi[line.date]}
-        </LinkButton>
-        {' '}
-        <LinkButton
-          classNames='PageTmpMdLabel-MdLineView-Rot'
-          onClick={useCallback(() => { updateLine({ ...line, priority: rotPriority[line.priority] }) }, [line, updateLine])}
-        >
-          {priorityHanzi[line.priority]}
-        </LinkButton>
-        {' '}
-        <LinkButton
-          classNames='PageTmpMdLabel-MdLineView-Rot'
-          onClick={useCallback(() => { updateLine({ ...line, category: rotCategory[line.category] }) }, [line, updateLine])}
-        >
-          {categoryHanzi[line.category]}
-        </LinkButton>
-        <br />
-        <Button onClick={useCallback(() => { mergeTwoLines(line) }, [line, mergeTwoLines])}>併</Button>
-        <Button onClick={useCallback(() => { startEditLine(line) }, [line, startEditLine])}>編</Button>
-      </div>
-      <div className='PageTmpMdLabel-MdLineView-Text'>
-        {line.text}
-      </div>
+}> = ({ line, mergeTwoLines, startEditLine, updateLine }) => (
+  <div className={classnames(
+    'PageTmpMdLabel-MdLineView',
+    `PageTmpMdLabel-MdLineView-_date_${line.date}`,
+    `PageTmpMdLabel-MdLineView-_priority_${line.priority}`,
+    `PageTmpMdLabel-MdLineView-_category_${line.category}`,
+  )}
+  >
+    <div className='PageTmpMdLabel-MdLineView-Menu'>
+      <LinkButton
+        classNames='PageTmpMdLabel-MdLineView-Rot'
+        onClick={useCallback(() => { updateLine({ ...line, date: rotDate[line.date] }) }, [line, updateLine])}
+      >
+        {dateHanzi[line.date]}
+      </LinkButton>
+      {' '}
+      <LinkButton
+        classNames='PageTmpMdLabel-MdLineView-Rot'
+        onClick={useCallback(() => { updateLine({ ...line, priority: rotPriority[line.priority] }) }, [line, updateLine])}
+      >
+        {priorityHanzi[line.priority]}
+      </LinkButton>
+      {' '}
+      <LinkButton
+        classNames='PageTmpMdLabel-MdLineView-Rot'
+        onClick={useCallback(() => { updateLine({ ...line, category: rotCategory[line.category] }) }, [line, updateLine])}
+      >
+        {categoryHanzi[line.category]}
+      </LinkButton>
+      <br />
+      <Button onClick={useCallback(() => { mergeTwoLines(line) }, [line, mergeTwoLines])}>併</Button>
+      <Button onClick={useCallback(() => { startEditLine(line) }, [line, startEditLine])}>編</Button>
     </div>
-  )
-}
+    <div className='PageTmpMdLabel-MdLineView-Text'>
+      {line.text}
+    </div>
+  </div>
+)
 
 /// /////////////////////////////////////////////////////////////////////////////
+// 編集対象の行ごとに key を変えてマウントし直す前提で、テキストの初期値を props から取る
 const EditModal: React.FC<{
-  line: MdLine | null
+  closeModal: () => void
+  line: MdLine
   replaceLines: (oldID: string, ls: MdLine[]) => void
-}> = ({ line, replaceLines }) => {
-  const [isShown, setShown] = React.useState(false)
-  const [text, setText] = React.useState('')
-
-  React.useEffect(() => {
-    setShown(!!line)
-    if(line) {
-      setText(line.text)
-    }
-  }, [line])
+}> = ({ closeModal, line, replaceLines }) => {
+  const [text, setText] = React.useState(line.text)
 
   const update = useCallback((): void => {
-    if(!line) { return }
-
     const ls = text.split('\n\n').map((t, i): MdLine => ({
       ...line,
       id: i === 0 ? line.id : uuidv4(),
@@ -149,15 +142,11 @@ const EditModal: React.FC<{
 
     replaceLines(line.id, ls)
 
-    setShown(false)
-  }, [line, replaceLines, text])
-
-  const hider = useCallback(() => { setShown(false) }, [])
-
-  if(!isShown) { return null }
+    closeModal()
+  }, [closeModal, line, replaceLines, text])
 
   return (
-    <Modal hider={hider}>
+    <Modal hider={closeModal}>
       <p>2連続の改行を区切りとして分割されます</p>
 
       <textarea
@@ -177,23 +166,25 @@ const FilterSelect: React.FC<{
   onUpdate: (v: string) => void
   options: Array<[string, string]>
   value: string
-}> = ({ onUpdate, options, value }) => {
-  return (
-    <select onChange={(ev) => { onUpdate(ev.target.value) }} value={value}>
-      {options.map(([v, d]) => (
-        <option key={v} value={v}>{d}</option>
-      ))}
-    </select>
-  )
-}
+}> = ({ onUpdate, options, value }) => (
+  <select onChange={(ev) => { onUpdate(ev.target.value) }} value={value}>
+    {options.map(([v, d]) => (
+      <option key={v} value={v}>{d}</option>
+    ))}
+  </select>
+)
 
 /// /////////////////////////////////////////////////////////////////////////////
 
 const PageTmpMdLabel: React.FC<Record<string, never>> = () => {
   React.useEffect(() => {
-    window.addEventListener('beforeunload', (ev) => {
-      ev.returnValue = '変更は保存されません'
-    })
+    const confirmBeforeUnload = (ev: BeforeUnloadEvent): void => {
+      ev.preventDefault()
+    }
+    window.addEventListener('beforeunload', confirmBeforeUnload)
+    return () => {
+      window.removeEventListener('beforeunload', confirmBeforeUnload)
+    }
   }, [])
 
   const [showMarkdownModal, setShowMarkdownModal] = React.useState(false)
@@ -204,16 +195,19 @@ const PageTmpMdLabel: React.FC<Record<string, never>> = () => {
   const [editingLine, setEditingLine] = React.useState<MdLine | null>(null)
   const [lineFilter, setLineFilter] = React.useState<LineFilter>({})
 
-  const parseAndSetJSONLines = useCallback((str: string | null): boolean => {
-    const ls = str && (JSON.parse(str) as MdLine[])
-    if(Array.isArray(ls) && ls.length >= 1 && ls[0].priority) {
-      setLines(ls)
+  const parseAndSetJSONLines = useCallback((jsonText: string | null): boolean => {
+    if(jsonText === null || jsonText === '') { return false }
+    const parseResult = MdLinesSchema.safeParse(JSON.parse(jsonText))
+    if(parseResult.success) {
+      setLines(parseResult.data)
       return true
     }
     return false
   }, [])
 
   React.useEffect(() => {
+    // 静的に事前レンダリングされるページなので、localStorage はハイドレーション後にしか読めない
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     parseAndSetJSONLines(window.localStorage.getItem('PageTmpMdLabel.lines'))
   }, [parseAndSetJSONLines])
 
@@ -244,6 +238,8 @@ const PageTmpMdLabel: React.FC<Record<string, never>> = () => {
     (!lineFilter.priority || priorityCode[l.priority] >= priorityCode[lineFilter.priority]) &&
     (!lineFilter.category || l.category === lineFilter.category)
   ))
+
+  const closeEditModal = useCallback(() => { setEditingLine(null) }, [])
 
   const markdownModalHider = useCallback(() => { setShowMarkdownModal(false) }, [])
   const markdownModalReplace =
@@ -347,7 +343,14 @@ const PageTmpMdLabel: React.FC<Record<string, never>> = () => {
             />
           ))}
         </main>
-        <EditModal line={editingLine} replaceLines={replaceLines} />
+        {editingLine !== null && (
+          <EditModal
+            closeModal={closeEditModal}
+            key={editingLine.id}
+            line={editingLine}
+            replaceLines={replaceLines}
+          />
+        )}
       </Section>
     </Page>
   )

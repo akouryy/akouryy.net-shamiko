@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import Head from 'next/head'
-import React, { PropsWithChildren } from 'react'
+import React, { type PropsWithChildren } from 'react'
 import { ScrollContext, useScrollProps } from '../contexts/ScrollContext'
 
 interface P {

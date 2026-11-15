@@ -1,11 +1,11 @@
-import React, { PropsWithChildren } from 'react'
+import React, { type PropsWithChildren } from 'react'
 
 interface P {
   hider: (_: false) => void
 }
 
 export const Modal: React.FC<PropsWithChildren<P>> = ({ children, hider }) => {
-  const onKeyPress = (ev: React.KeyboardEvent<HTMLDivElement>): void => {
+  const hideOnEscapeKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>): void => {
     if(ev.key === 'Escape') {
       hider(false)
     }
@@ -15,7 +15,7 @@ export const Modal: React.FC<PropsWithChildren<P>> = ({ children, hider }) => {
     <div
       className='Modal-Background'
       onClick={(): void => { hider(false) }}
-      onKeyPress={onKeyPress}
+      onKeyDown={hideOnEscapeKeyDown}
       role='button'
       tabIndex={0}
     >

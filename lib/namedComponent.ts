@@ -13,6 +13,4 @@ export const namedMemo = <P extends Record<never, unknown>>(
   propsAreEqual?: (
     (b: Readonly<React.PropsWithChildren<P>>, a: Readonly<React.PropsWithChildren<P>>) => boolean
   ),
-): React.NamedExoticComponent<P> => {
-  return React.memo(named(name, component), propsAreEqual)
-}
+): React.NamedExoticComponent<P> => React.memo(named(name, component), propsAreEqual)

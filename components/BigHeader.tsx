@@ -33,27 +33,25 @@ export const BigHeader: React.FC<P> = (props) => {
   return (<BigHeaderFixed {...props} />)
 }
 
-const BigHeaderHero = namedMemo<P>('BigHeaderHero', ({ menu }) => {
-  return (
-    <header className='BigHeaderHero'>
-      <div className='BigHeaderHero-ForeGround'>
-        <h1 className='BigHeaderHero-Title'>akouryy.net</h1>
+const BigHeaderHero = namedMemo<P>('BigHeaderHero', ({ menu }) => (
+  <header className='BigHeaderHero'>
+    <div className='BigHeaderHero-ForeGround'>
+      <h1 className='BigHeaderHero-Title'>akouryy.net</h1>
 
-        <ul className='BigHeaderHero-Menu'>
-          {menu.map(([to, title], i) => (
-            <li className='BigHeaderHero-MenuItem' key={to}>
-              <ScrollLink duration={300 * (i + 1.5)} offset={-48} smooth to={to}>
-                {title}
-              </ScrollLink>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul className='BigHeaderHero-Menu'>
+        {menu.map(([to, title], i) => (
+          <li className='BigHeaderHero-MenuItem' key={to}>
+            <ScrollLink duration={300 * (i + 1.5)} offset={-48} smooth to={to}>
+              {title}
+            </ScrollLink>
+          </li>
+        ))}
+      </ul>
+    </div>
 
-      {/* <BigHeaderAnime /> */}
-    </header>
-  )
-})
+    {/* <BigHeaderAnime /> */}
+  </header>
+))
 
 const BigHeaderFixed: React.FC<P> = namedMemo('BigHeaderFixed', () => {
   const onClick = React.useCallback(
