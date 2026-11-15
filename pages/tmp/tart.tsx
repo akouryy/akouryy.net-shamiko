@@ -11,9 +11,9 @@ type Fluit =
   string | Fluit[] | { t: typeof ELLIPSIS, s: string } | { t: typeof PAREN, o: string, f: Fluit }
 
 function stringFluitToHTML(str: string): { __html: string } {
-  let html = str.replaceAll(/&/g, '&amp;').replaceAll(/</g, '&lt;').replaceAll(/>/g, '&gt;')
+  let html = str.replaceAll(/&/gu, '&amp;').replaceAll(/</gu, '&lt;').replaceAll(/>/gu, '&gt;')
 
-  for(let i = 0; i < 10; ++i) {
+  for(let i = 0; i < 10; i += 1) {
     html = html.replaceAll(String.fromCharCode('₀'.charCodeAt(0) + i), `<sub>${i}</sub>`)
   }
 
@@ -75,7 +75,6 @@ interface TartTree {
   children: TartTree[]
 }
 
-// 再帰型は z.infer で導出できないため、既存の型に注釈で合わせる
 const FluitSchema: z.ZodType<Fluit> = z.lazy(() => z.union([
   z.string(),
   z.array(FluitSchema),
@@ -83,7 +82,6 @@ const FluitSchema: z.ZodType<Fluit> = z.lazy(() => z.union([
   z.object({ t: z.literal(PAREN), o: z.string(), f: FluitSchema }),
 ]))
 
-// 描画側は forceMultiLine で entries を常に Fluit[][] として扱うため、単一行形式は受け付けない
 const TartTreeSchema: z.ZodType<TartTree> = z.lazy(() => z.object({
   entries: z.array(z.array(FluitSchema)),
   result: FluitSchema,
@@ -167,14 +165,12 @@ const PageTmpTart: FC<Record<string, never>> = () => {
     reader.readAsText(ev.target.files![0])
   }
 
-  const fileClick = (ev: MouseEvent<HTMLInputElement>): void => {
-    if(ev.target instanceof HTMLInputElement) {
-      ev.target.value = ''
-    }
+  const fileClick = ({ currentTarget: fileInputElement }: MouseEvent<HTMLInputElement>): void => {
+    fileInputElement.value = ''
   }
 
   const expandClick = (): void => {
-    [...document.getElementsByTagName('details')].forEach((d) => { d.open = true })
+    [...document.getElementsByTagName('details')].forEach((detailsElement) => { detailsElement.open = true })
   }
 
   return (

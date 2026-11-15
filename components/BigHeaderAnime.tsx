@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { withNonNullScrollProps } from '../contexts/ScrollContext'
 import { namedMemo } from '../lib/namedComponent'
 
-class Squircle {
+interface Squircle {
   id: string
   x: number
   y: number
@@ -12,21 +12,21 @@ class Squircle {
   rotateDuration: number
   speed: number
   isClockwise: boolean
-
-  constructor(
-    xMin: number, xMax: number, yMin: number, yMax: number,
-    sizeMin: number, sizeMax: number, durMin: number, durMax: number,
-    speedMin: number, speedMax: number,
-  ) {
-    this.id = uuidv4()
-    this.x = xMin + Math.random() * (xMax - xMin)
-    this.y = yMin + Math.random() * (yMax - yMin)
-    this.size = sizeMin + Math.random() * (sizeMax - sizeMin)
-    this.rotateDuration = durMin + Math.random() * (durMax - durMin)
-    this.speed = speedMin + Math.random() * (speedMax - speedMin)
-    this.isClockwise = Math.random() < 0.5
-  }
 }
+
+const createRandomSquircle = (
+  xMin: number, xMax: number, yMin: number, yMax: number,
+  sizeMin: number, sizeMax: number, durMin: number, durMax: number,
+  speedMin: number, speedMax: number,
+): Squircle => ({
+  id: uuidv4(),
+  x: xMin + Math.random() * (xMax - xMin),
+  y: yMin + Math.random() * (yMax - yMin),
+  size: sizeMin + Math.random() * (sizeMax - sizeMin),
+  rotateDuration: durMin + Math.random() * (durMax - durMin),
+  speed: speedMin + Math.random() * (speedMax - speedMin),
+  isClockwise: Math.random() < 0.5,
+})
 
 export const BigHeaderAnime: React.FC = withNonNullScrollProps(
   'BigHeaderAnime',
@@ -34,7 +34,7 @@ export const BigHeaderAnime: React.FC = withNonNullScrollProps(
     const [squircles, updateSquircles] = React.useState(Array<Squircle>())
 
     React.useEffect(() => {
-      const newSquircles = times(24).map<Squircle>((i) => new Squircle(
+      const newSquircles = times(24).map<Squircle>((i) => createRandomSquircle(
         docWidth / 4 * (i % 4), docWidth / 4 * (1 + i % 4),
         winHeight / 3 * Math.floor(i / 4 % 3), winHeight / 3 * (1 + Math.floor(i / 4 % 3)),
         20, 150,

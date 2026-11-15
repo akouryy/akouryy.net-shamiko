@@ -7,7 +7,7 @@ export const named = <P>(name: string, component: React.FC<P>): React.FC<P> => {
   return component
 }
 
-export const namedMemo = <P extends Record<never, unknown>>(
+export const namedMemo = <P extends object>(
   name: string,
   component: React.FC<P>,
   propsAreEqual?: (

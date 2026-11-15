@@ -125,7 +125,6 @@ const MdLineView: React.FC<{
 )
 
 /// /////////////////////////////////////////////////////////////////////////////
-// 編集対象の行ごとに key を変えてマウントし直す前提で、テキストの初期値を props から取る
 const EditModal: React.FC<{
   closeModal: () => void
   line: MdLine
@@ -196,7 +195,7 @@ const PageTmpMdLabel: React.FC<Record<string, never>> = () => {
   const [lineFilter, setLineFilter] = React.useState<LineFilter>({})
 
   const parseAndSetJSONLines = useCallback((jsonText: string | null): boolean => {
-    if(jsonText === null || jsonText === '') { return false }
+    if(jsonText == null || jsonText === '') { return false }
     const parseResult = MdLinesSchema.safeParse(JSON.parse(jsonText))
     if(parseResult.success) {
       setLines(parseResult.data)
@@ -206,7 +205,6 @@ const PageTmpMdLabel: React.FC<Record<string, never>> = () => {
   }, [])
 
   React.useEffect(() => {
-    // 静的に事前レンダリングされるページなので、localStorage はハイドレーション後にしか読めない
     // eslint-disable-next-line react-hooks/set-state-in-effect
     parseAndSetJSONLines(window.localStorage.getItem('PageTmpMdLabel.lines'))
   }, [parseAndSetJSONLines])
@@ -343,7 +341,7 @@ const PageTmpMdLabel: React.FC<Record<string, never>> = () => {
             />
           ))}
         </main>
-        {editingLine !== null && (
+        {editingLine != null && (
           <EditModal
             closeModal={closeEditModal}
             key={editingLine.id}

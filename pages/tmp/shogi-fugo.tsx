@@ -18,7 +18,9 @@ const PieceE2J = {
   B: '馬',
   R: '龍',
 }
-const NotationRegExp = /([sg]?)(?:([1-9])([1-9])|(=))([plnsgbrkPLNSBR])([右直左]?[上寄引]?)([+*]?)/g
+const isPieceE2JKey = (piece: string): piece is keyof typeof PieceE2J => Object.hasOwn(PieceE2J, piece)
+
+const NotationRegExp = /([sg]?)(?:([1-9])([1-9])|(=))([plnsgbrkPLNSBR])([右直左]?[上寄引]?)([+*]?)/gu
 
 function convertNotations(input: string): string {
   let isNextSente = true
@@ -34,7 +36,7 @@ function convertNotations(input: string): string {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         same === '=' ? '同' : String.fromCodePoint('０'.codePointAt(0)! + +col) + '？一二三四五六七八九'[+row]
       }${
-        PieceE2J[piece as keyof typeof PieceE2J]
+        isPieceE2JKey(piece) ? PieceE2J[piece] : piece
       }${
         move
       }${

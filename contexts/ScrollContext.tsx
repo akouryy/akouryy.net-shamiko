@@ -48,16 +48,14 @@ export const useScrollProps = (): ScrollProps => {
   return props
 }
 
-export const withNonNullScrollProps = <P extends { scroll: NonNullScrollProps }>(
-  name: string, component: React.FC<P>,
-): React.FC<Omit<P, 'scroll'>> => {
+export const withNonNullScrollProps = <OuterProps extends object>(
+  name: string, component: React.FC<OuterProps & { scroll: NonNullScrollProps }>,
+): React.FC<OuterProps> => {
   const NamedComponent = named(name, component)
-  return named(`withNonNullScrollProps[${name}]`, (props) => {
+  return named(`withNonNullScrollProps[${name}]`, (props: OuterProps) => {
     const scroll = React.useContext(ScrollContext)
-    if(scroll) {
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      const allProps = { scroll, ...props } as P
-      return (<NamedComponent {...allProps} />)
+    if(scroll != null) {
+      return (<NamedComponent {...props} scroll={scroll} />)
     }
     return (<></>)
   })
