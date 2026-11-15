@@ -28,10 +28,8 @@ export const BigHeader: React.FC<P> = (props) => {
   }, [isNightDominant])
 
   if(scrollTop < winHeight - 48) {
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return (<BigHeaderHero {...props} />)
   }
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   return (<BigHeaderFixed {...props} />)
 }
 
@@ -59,7 +57,7 @@ const BigHeaderHero = namedMemo<P>('BigHeaderHero', ({ menu }) => {
 
 const BigHeaderFixed: React.FC<P> = namedMemo('BigHeaderFixed', () => {
   const onClick = React.useCallback(
-    (): void => animateScroll.scrollToTop({ duration: 1000 }),
+    (): void => { animateScroll.scrollToTop({ duration: 1000 }) },
     [],
   )
 

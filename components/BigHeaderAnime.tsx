@@ -50,7 +50,6 @@ export const BigHeaderAnime: React.FC = withNonNullScrollProps(
         viewBox={`0 0 ${docWidth} ${winHeight}`}
       >
         {squircles.map((squircle) => (
-          // eslint-disable-next-line @typescript-eslint/no-use-before-define
           <BigHeaderAnimeSquircle docWidth={docWidth} key={squircle.id} {...squircle} />
         ))}
       </svg>
@@ -82,7 +81,6 @@ const BigHeaderAnimeSquircle: React.FC<SquircleProps> = namedMemo('BigHeaderAnim
             `}
             key={d}
             strokeWidth={3}
-            // eslint-disable-next-line react/no-unknown-property
             transform-origin={`${x} ${y}`}
           >
             <animateTransform

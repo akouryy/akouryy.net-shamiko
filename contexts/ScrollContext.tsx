@@ -34,7 +34,7 @@ export const useScrollProps = (): ScrollProps => {
   const [props, update] = React.useState<ScrollProps>(null)
 
   React.useEffect(() => {
-    const handler = throttle(() => update(calcScrollProps()), 16)
+    const handler = throttle(() => { update(calcScrollProps()) }, 16)
     const options = { capture: false, passive: true }
     handler()
     document.addEventListener('scroll', handler, options)

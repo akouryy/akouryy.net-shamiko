@@ -23,9 +23,7 @@ const EllipsisView: FC<{ s: string }> = ({ s }) => {
   const [visible, setVisible] = useState(false)
 
   return (
-    // eslint-disable-next-line max-len
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
-    <LinkButton classNames='PageTmpTart-EllipsisView' onClick={useCallback(() => setVisible(!visible), [visible])}>
+    <LinkButton classNames='PageTmpTart-EllipsisView' onClick={useCallback(() => { setVisible(!visible) }, [visible])}>
       {visible ? (
         s
       ) : (
@@ -49,10 +47,8 @@ const FluitView: FC<{ fluit: Fluit, level: number }> = ({ fluit, level }) => {
   return (
     <span>
       {typeof fluit === 'string' ? (
-        // eslint-disable-next-line react/no-danger
         <span dangerouslySetInnerHTML={stringFluitToHTML(fluit)} />
       ) : Array.isArray(fluit) ? fluit.map((f, i) => (
-        // eslint-disable-next-line react/no-array-index-key
         <FluitView fluit={f} key={i} level={level} />
       )) : fluit.t === ELLIPSIS ? (
         <EllipsisView s={fluit.s} />
@@ -104,12 +100,10 @@ const TartView: FC<{ tree: TartTree }> = ({ tree }) => {
             info
           </summary>
           {entries.map((es, j) => (
-            // eslint-disable-next-line react/no-array-index-key
             <table className='PageTmpTart-TartView-Table' key={j}>
               <tbody>
                 <tr className='PageTmpTart-TartView-Row'>
                   {es.map((e, i) => (
-                    // eslint-disable-next-line react/no-array-index-key
                     <td className='PageTmpTart-TartView-Entry' key={i}>
                       <div className='PageTmpTart-TartView-EntryWrapper'>
                         <FluitView fluit={e} level={0} />
@@ -136,7 +130,6 @@ const TartView: FC<{ tree: TartTree }> = ({ tree }) => {
         </details>
 
         {tree.children.map((child, i) => (
-          // eslint-disable-next-line react/no-array-index-key
           <TartView key={i} tree={child} />
         ))}
       </details>

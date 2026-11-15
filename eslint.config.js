@@ -1,20 +1,22 @@
-import a from 'eslint-config-a'
+import love from 'eslint-config-love'
+import reactHooks from 'eslint-plugin-react-hooks'
+import { defineConfig } from 'eslint/config'
 
-export default [
-  ...a,
+export default defineConfig([
   {
-    ignores: ['next-env.d.ts'],
+    ignores: ['.next/', '.vercel/', 'next-env.d.ts'],
   },
+  {
+    ...love,
+    files: ['**/*.ts', '**/*.tsx'],
+  },
+  reactHooks.configs.flat.recommended,
   {
     rules: {
-      'sort-imports': ['error', {
-        ignoreCase: true,
-        // 宣言順の並べ替えは import/order に任せ、ここでは同一宣言内の名前順だけを検査する
-        ignoreDeclarationSort: true,
-      }],
-      'import/order': ['error', {
-        alphabetize: { order: 'asc', caseInsensitive: true },
-      }],
+      '@eslint-community/eslint-comments/require-description': 'off',
+      '@typescript-eslint/no-magic-numbers': 'off',
+      // import 文どうしの並び順は検査せず、同一 import 内の名前の並びだけを揃える
+      'sort-imports': ['error', { ignoreCase: true, ignoreDeclarationSort: true }],
     },
   },
-]
+])

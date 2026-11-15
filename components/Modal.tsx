@@ -14,19 +14,15 @@ export const Modal: React.FC<PropsWithChildren<P>> = ({ children, hider }) => {
   return (
     <div
       className='Modal-Background'
-      onClick={(): void => hider(false)}
+      onClick={(): void => { hider(false) }}
       onKeyPress={onKeyPress}
       role='button'
       tabIndex={0}
     >
-      {/* eslint-disable
-        jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
       <div
         className='Modal'
-        onClick={(ev): void => ev.stopPropagation()}
+        onClick={(ev): void => { ev.stopPropagation() }}
       >
-        {/* eslint-enable
-          jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
         {children}
       </div>
     </div>

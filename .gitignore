@@ -9,6 +9,7 @@
 .nyc_output
 .yarn-integrity
 *.log
+*.tsbuildinfo
 *.pid
 *.pid.lock
 *.seed

@@ -59,7 +59,7 @@ const PageTmpShogiFugo: React.FC<Record<string, never>> = () => {
         <p>
           <textarea
             cols={100}
-            onChange={(ev) => setInput(ev.target.value)}
+            onChange={(ev) => { setInput(ev.target.value) }}
             rows={15}
             value={input}
           />
