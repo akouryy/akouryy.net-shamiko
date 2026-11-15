@@ -65,9 +65,10 @@ const PageIndex: React.FC<P> = () => {
                     <ul>
                       <li>
                         <ExternalLink follow href='http://isucon.net'>ISUCON</ExternalLink>
-                        13 5位{' '}
+                        14 20位{' '}
                         <small>チーム FetchDecodeExecWrite</small>
                       </li>
+                      <li>ISUCON13 5位</li>
                       <li>ISUCON12 本選5位 (学生3位)</li>
                       <li>ISUCON11 <em>本選3位</em></li>
                       <li>ISUCON10 本選6位</li>
